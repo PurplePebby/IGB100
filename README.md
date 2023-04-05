@@ -1,2 +1,2 @@
-# IGB100
+# Group2 IGB100
 Group2_IGB100
