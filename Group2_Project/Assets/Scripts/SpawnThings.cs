@@ -10,17 +10,27 @@ public class SpawnThings : MonoBehaviour
     
     private List<int> Spawnned = new List<int>();
 
+    private int treasureCount;
+    public float instantiateRate;
+    private float nextInstantiate;
+
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnTreasure();
+        nextInstantiate = Time.time + instantiateRate;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //if (Time.time > nextInstantiate && treasureCount < 5) {
+        //    Spawnned.Clear();
+        //    SpawnTreasure();
+        //    nextInstantiate = Time.time + instantiateRate;
+        //}
     }
 
     //randomly select a treasure to spawn
@@ -34,16 +44,18 @@ public class SpawnThings : MonoBehaviour
         int selected = Random.Range(0, spawnLocations.Count);
         return selected;
     }
-    private void SpawnTreasure() {       
-        
-        for (int i = 0; i <= 4; i++) {
-            int a = SelectTreasure();
+    private void SpawnTreasure() {
+        //Debug.Log("Something Spawnned");\
+        for (int i = 0; i <= 10; i++) {
+            //int a = SelectTreasure();
             int b = SelectLocation();
             if (Spawnned.Contains(b) == false || Spawnned == null) {
-                Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation); 
+                Instantiate(treasures[0], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
+                Debug.Log("Spawn Location is: " + spawnLocations[b]);
+                GameManager.instance.AddCount(1);
                 Spawnned.Add(b);
             }
-        }
+        }      
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GrabThings : MonoBehaviour
@@ -18,8 +19,11 @@ public class GrabThings : MonoBehaviour
     /// Method called very frame.
     /// </summary>
     private void Update() {
+        
         // Execute logic only on button pressed
         if (Input.GetMouseButtonDown(0)) {
+            //check if near boat
+            DetectBoat();
             // Check if player picked some item already
             if (thing) {
                 // If yes, drop picked item
@@ -31,7 +35,7 @@ public class GrabThings : MonoBehaviour
                 var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
                 RaycastHit hit;
                 // Shot ray to find object to pick
-                if (Physics.Raycast(ray, out hit, 1.5f)) {
+                if (Physics.Raycast(ray, out hit, 2f)) {
                     // Check if object is pickable
                     var pickable = hit.transform.GetComponent<CollectibleThing>();
                     // If object has PickableItem class
@@ -42,6 +46,7 @@ public class GrabThings : MonoBehaviour
                 }
             }
         }
+        
     }
     /// <summary>
     /// Method for picking up item.
@@ -73,5 +78,33 @@ public class GrabThings : MonoBehaviour
         item.Rb.isKinematic = false;
         // Add force to throw item a little bit
         item.Rb.AddForce(item.transform.forward * 2, ForceMode.VelocityChange);
+    }
+
+    private void DetectBoat() {
+        // If no, try to pick item in front of the player
+        // Create ray from center of the screen
+        var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
+        RaycastHit hit;
+        // Shot ray to find object to pick
+        if (Physics.Raycast(ray, out hit, 2f)) {
+            // If object has PickableItem class
+            if (hit.transform.GameObject().tag == "Boat" && slot.GetChild(0).gameObject != null) {
+                // Pick it
+                for (int i = 0; i < 1; i++) {
+                    AddScore();
+                }
+            }
+        }
+    }
+
+    public void AddScore() {
+        GameObject grandChild = slot.GetChild(0).gameObject;
+        if (grandChild != null) {
+            GameManager.instance.AddCount(-1);
+            GameManager.instance.AddScore(1);
+            Destroy(grandChild.gameObject);
+        }
+
+
     }
 }

@@ -58,7 +58,7 @@ namespace StarterAssets
 		private float _speed;
 		private float _rotationVelocity;
 		private float _verticalVelocity;
-		private float _terminalVelocity = 5.0f;
+		private float _terminalVelocity = 7.5f;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -267,7 +267,7 @@ namespace StarterAssets
         private void FloatyBoi() {
             if (Input.GetKey("space")) {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
-                _verticalVelocity = -1.5f * Gravity;
+                _verticalVelocity = -2f * Gravity;
             }
         }
     }
