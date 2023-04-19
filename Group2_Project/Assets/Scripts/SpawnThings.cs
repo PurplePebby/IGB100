@@ -11,7 +11,7 @@ public class SpawnThings : MonoBehaviour
     private List<int> Spawnned = new List<int>();
 
     private int treasureCount;
-    public float instantiateRate;
+    public float instantiateRate = 10f;
     private float nextInstantiate;
 
 
@@ -26,9 +26,16 @@ public class SpawnThings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("e")) {
+            Spawnned.Clear();
+            SpawnTreasure();
+        }
+        //if (treasureCount > 3) {
+            
+        //}
         //if (Time.time > nextInstantiate && treasureCount < 5) {
-        //    Spawnned.Clear();
-        //    SpawnTreasure();
+        //    ideally would like to add a check
+            
         //    nextInstantiate = Time.time + instantiateRate;
         //}
     }
@@ -47,10 +54,10 @@ public class SpawnThings : MonoBehaviour
     private void SpawnTreasure() {
         //Debug.Log("Something Spawnned");\
         for (int i = 0; i <= 10; i++) {
-            //int a = SelectTreasure();
+            int a = SelectTreasure();
             int b = SelectLocation();
             if (Spawnned.Contains(b) == false || Spawnned == null) {
-                Instantiate(treasures[0], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
+                Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
                 Debug.Log("Spawn Location is: " + spawnLocations[b]);
                 GameManager.instance.AddCount(1);
                 Spawnned.Add(b);
