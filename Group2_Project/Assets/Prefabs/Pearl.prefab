@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7558806670797759581}
   - component: {fileID: 7558806670797759582}
   - component: {fileID: 7558806670797759583}
-  - component: {fileID: 7558806670797759568}
   - component: {fileID: -9127063760829991550}
   - component: {fileID: 6359971535704678241}
+  - component: {fileID: -1602956578530340010}
   m_Layer: 0
   m_Name: Pearl
   m_TagString: Untagged
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7558806670797759568
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7558806670797759569}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-9127063760829991550
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,3 +114,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bccfc1ec253c645a3d6d1a21e49ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &-1602956578530340010
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558806670797759569}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
