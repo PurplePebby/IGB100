@@ -58,7 +58,7 @@ namespace StarterAssets
 		private float _speed;
 		private float _rotationVelocity;
 		private float _verticalVelocity;
-		private float _terminalVelocity = 20.0f;
+		private float _terminalVelocity = 5.0f;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -113,7 +113,9 @@ namespace StarterAssets
 		private void Update()
 		{
 			JumpAndGravity();
-			GroundedCheck();
+			FloatyBoi();
+
+            GroundedCheck();
 			Move();
 		}
 
@@ -200,14 +202,7 @@ namespace StarterAssets
 
 		private void JumpAndGravity()
 		{
-            // Jump
-            if (_input.jump) {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
-                _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-            }
-				_input.jump = false;
-			
-   //         if (Grounded)
+			//if (Grounded)
 			//{
 			//	// reset the fall timeout timer
 			//	_fallTimeoutDelta = FallTimeout;
@@ -218,15 +213,14 @@ namespace StarterAssets
 			//		_verticalVelocity = -2f;
 			//	}
 
-			//	// Jump
-			//	if (_input.jump && _jumpTimeoutDelta <= 0.0f)
-			//	{
+   //             // Jump
+   //             if (Input.GetKeyDown("space") && _jumpTimeoutDelta <= 0.0f) {
 			//		// the square root of H * -2 * G = how much velocity needed to reach desired height
-			//		_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-			//	}
+			//		_verticalVelocity = -2f * Gravity;
+   //             }
 
-			//	// jump timeout
-			//	if (_jumpTimeoutDelta >= 0.0f)
+   //             // jump timeout
+   //             if (_jumpTimeoutDelta >= 0.0f)
 			//	{
 			//		_jumpTimeoutDelta -= Time.deltaTime;
 			//	}
@@ -243,12 +237,11 @@ namespace StarterAssets
 			//	}
 
 			//	// if we are not grounded, do not jump
-			//	_input.jump = false;
+			//	//_input.jump = false;
 			//}
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-			if (_verticalVelocity < _terminalVelocity)
-			{
+			if (_verticalVelocity < _terminalVelocity) {
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
@@ -271,5 +264,13 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
-	}
+        private void FloatyBoi() {
+            if (Input.GetKey("space")) {
+                // the square root of H * -2 * G = how much velocity needed to reach desired height
+                _verticalVelocity = -1.5f * Gravity;
+            }
+        }
+    }
+
+	
 }
