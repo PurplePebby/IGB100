@@ -213,14 +213,14 @@ namespace StarterAssets
 			//		_verticalVelocity = -2f;
 			//	}
 
-   //             // Jump
-   //             if (Input.GetKeyDown("space") && _jumpTimeoutDelta <= 0.0f) {
+			//             // Jump
+			//             if (Input.GetKeyDown("space") && _jumpTimeoutDelta <= 0.0f) {
 			//		// the square root of H * -2 * G = how much velocity needed to reach desired height
 			//		_verticalVelocity = -2f * Gravity;
-   //             }
+			//             }
 
-   //             // jump timeout
-   //             if (_jumpTimeoutDelta >= 0.0f)
+			//             // jump timeout
+			//             if (_jumpTimeoutDelta >= 0.0f)
 			//	{
 			//		_jumpTimeoutDelta -= Time.deltaTime;
 			//	}
@@ -239,6 +239,12 @@ namespace StarterAssets
 			//	// if we are not grounded, do not jump
 			//	//_input.jump = false;
 			//}
+			if (Grounded){
+				// stop our velocity dropping infinitely when grounded
+				if (_verticalVelocity < 0.0f) {
+				_verticalVelocity = 0f;
+				} 
+			}
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity) {
