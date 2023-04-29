@@ -3,16 +3,28 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
-    private GameObject parent;
+    private GameObject scoreParent;
     private int score = 0;
     private int treasureCount = 0;
     private Text scoreText;
+    [SerializeField]
+    [Tooltip("The player's max health.")] private float maxHealth;
+	[SerializeField]
+	[Tooltip("The UI slider used to show health.")] private Slider healthBarSlider;
 
-    void Awake() {
+	[SerializeField]
+	[Tooltip("The player's max oxygen.")] private float maxOxygen;
+	[SerializeField]
+	[Tooltip("The UI slider used to show oxygen.")] private Slider oxygenBarSlider;
+    [SerializeField]
+    [Tooltip("How fast the player will take damage when drowning.")] private float drownDPS = 1;
+
+	void Awake() {
         if (instance == null) {
             instance = this;
         }
@@ -22,13 +34,58 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-        parent = GameObject.Find("Score Text");
-        scoreText = parent.GetComponent<Text>();
+        scoreParent = GameObject.Find("Score Text");
+        scoreText = scoreParent.GetComponent<Text>();
 
         UpdateScore();
+
+        SetMaxHealth(maxHealth);
+        SetMaxOxygen(maxOxygen);
     }
 
-    private void UpdateScore() {
+	#region player stats
+	public void SetMaxHealth(float health) {
+		healthBarSlider.maxValue = health;
+		healthBarSlider.value = health;
+	}
+    public void SetHealth(float health) {
+        healthBarSlider.value = health;
+    }
+	public void UpdateHealth(float value)
+	{
+		healthBarSlider.value = Mathf.Clamp(healthBarSlider.value + value, 0, this.maxHealth);
+		if (healthBarSlider.value <= 0)
+		{
+			GameOver();
+		}
+	}
+
+    public void SetMaxOxygen(float oxygen)
+    {
+		oxygenBarSlider.maxValue = oxygen;
+		oxygenBarSlider.value = oxygen;
+	}
+    public void SetOxygen(float oxygen)
+    {
+        oxygenBarSlider.value = oxygen;
+
+	}
+	public void UpdateOxygen(float value)
+    {
+		oxygenBarSlider.value = Mathf.Clamp(oxygenBarSlider.value + value, 0, this.maxOxygen);
+        if (oxygenBarSlider.value <= 0)
+        {
+            Drowning();
+        }
+	}
+
+    public void Drowning()
+    {
+        UpdateHealth(-drownDPS * Time.deltaTime);
+	}
+	#endregion
+
+	private void UpdateScore() {
         scoreText.text = "Score: " + score;
     }
 
@@ -47,6 +104,10 @@ public class GameManager : MonoBehaviour {
         score -= newScoreValue;
 
         UpdateScore();
+    }
+
+    public void GameOver() {
+        
     }
 
 }

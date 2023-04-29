@@ -11,6 +11,7 @@ public class MoveSharkie : MonoBehaviour
     public Transform[] points;
     int current;
     public float speed = 5f;
+    [Tooltip("The amount of damage dealt in DPS.")]public float damage = 1f;
     private Transform PlayerPosition;
 
     public float CircleRadius = 14;
