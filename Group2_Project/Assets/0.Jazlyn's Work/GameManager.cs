@@ -24,6 +24,17 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     [Tooltip("How fast the player will take damage when drowning.")] private float drownDPS = 1;
 
+	[SerializeField]
+	private GameObject pauseMenu;
+	[SerializeField]
+	private GameObject gameOverScreen;
+
+    private bool paused = false;
+    public bool Paused
+    {
+        get { return paused; }
+    }
+
 	void Awake() {
         if (instance == null) {
             instance = this;
@@ -41,7 +52,26 @@ public class GameManager : MonoBehaviour {
 
         SetMaxHealth(maxHealth);
         SetMaxOxygen(maxOxygen);
-    }
+
+		Resume();
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	private void Update()
+	{
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+			if (Paused)
+			{
+				Resume();
+				
+			}
+			else
+			{
+				Pause();
+			}
+		}		
+	}
 
 	#region player stats
 	public void SetMaxHealth(float health) {
@@ -107,7 +137,25 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GameOver() {
-        
-    }
+		paused = true;
+		gameOverScreen.SetActive(true);
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+	}
+
+    public void Pause()
+    {
+        paused = true;
+        pauseMenu.SetActive(true);
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+	}
+
+    public void Resume()
+    {
+        paused = false;
+        pauseMenu.SetActive(false);
+		Cursor.lockState = CursorLockMode.Locked;
+	}
 
 }

@@ -118,7 +118,7 @@ namespace UnityTemplateProjects
             lookAction.Enable();
             verticalMovementAction.Enable();
             boostFactorAction.Enable();
-        }
+		}
 
 #endif
 
@@ -171,11 +171,21 @@ namespace UnityTemplateProjects
 
             if (IsEscapePressed())
             {
-                Application.Quit();
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            }
+                if (GameManager.instance.Paused)
+                {
+                    GameManager.instance.Resume();
+					Cursor.lockState = CursorLockMode.Locked;
+				}
+                else
+                {
+                    GameManager.instance.Pause();
+					Cursor.visible = true;
+					Cursor.lockState = CursorLockMode.None;
+				}
+//#if UNITY_EDITOR
+//                UnityEditor.EditorApplication.isPlaying = false;
+//#endif
+			}
 
             // Hide and lock cursor when right mouse button pressed
             if (IsRightMouseButtonDown())
