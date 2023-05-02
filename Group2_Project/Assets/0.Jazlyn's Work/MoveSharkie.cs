@@ -67,13 +67,13 @@ public class MoveSharkie : MonoBehaviour
     private void LookAtThing(Transform P, int a) {
         if (a == 0) {
             transform.LookAt(P);
-            transform.Rotate(-90f, 90f, 0f, Space.Self);
+            transform.Rotate(0f, 180f, 0f, Space.Self);
         }
         else {
             transform.LookAt(P);
 
             //remove this if shark model is facing in the wrong direction
-            transform.Rotate(-90f, 0f, 0f, Space.Self);
+            transform.Rotate(0f, 90f, 0f, Space.Self);
         }
 
     }
