@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
     private int score = 0;
     private int treasureCount = 0;
     private Text scoreText;
+    
     [SerializeField]
     [Tooltip("The player's max health.")] private float maxHealth;
 	[SerializeField]
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour {
 	private GameObject pauseMenu;
 	[SerializeField]
 	private GameObject gameOverScreen;
+    [SerializeField]
+    private GameObject Panels;
 
     private bool paused = false;
     public bool Paused
@@ -46,6 +50,9 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
         scoreParent = GameObject.Find("Score Text");
+        scoreText = scoreParent.GetComponent<Text>(); 
+        
+        
         scoreText = scoreParent.GetComponent<Text>();
 
         UpdateScore();
@@ -126,6 +133,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void AddCount(int newScoreValue) {
+        //Counts how much treasure has spawned into the scene
+        //then prints it out to the debug
         treasureCount += newScoreValue;
         Debug.Log("Amount of treasure in scene is "+ treasureCount);
     }
@@ -136,6 +145,9 @@ public class GameManager : MonoBehaviour {
         UpdateScore();
     }
 
+    /// <summary>
+    /// Can GameOVER, Pause and Resume be in a separate script?
+    /// </summary>
     public void GameOver() {
 		paused = true;
 		gameOverScreen.SetActive(true);
@@ -157,5 +169,29 @@ public class GameManager : MonoBehaviour {
         pauseMenu.SetActive(false);
 		Cursor.lockState = CursorLockMode.Locked;
 	}
+
+
+    //GLOBAL COROUTINES
+    
+    public void ShowE(bool state) {
+        //attach a canvas
+        //display text
+        Panels.SetActive(state);
+      //  StartCoroutine(turnOffE());
+        //yield return null;
+    }
+
+    public IEnumerator ShowIfInteract() {
+        Panels.SetActive(true);
+        yield return null;
+        //   yield return null;
+    }    
+    
+    public IEnumerator HideIfNoInteract() {
+        Panels.SetActive(false);
+        yield return null;
+        //   yield return null;
+    }
+
 
 }

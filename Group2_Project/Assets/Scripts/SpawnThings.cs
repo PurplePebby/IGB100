@@ -26,10 +26,10 @@ public class SpawnThings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("e")) {
-            Spawnned.Clear();
-            SpawnTreasure();
-        }
+        //if (Input.GetKeyDown("e")) {
+        //    Spawnned.Clear();
+        //    SpawnTreasure();
+        //}
         //if (treasureCount > 3) {
             
         //}
