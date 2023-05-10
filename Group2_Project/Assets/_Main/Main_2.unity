@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f450d71c21aa4244499f7196ea060624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treasureCount: 0
   healthBarSlider: {fileID: 0}
   oxygenBarSlider: {fileID: 0}
   moneyBarSlider: {fileID: 0}
@@ -595,7 +596,6 @@ MonoBehaviour:
   - {fileID: 1693701278}
   treasures:
   - {fileID: 7558806670797759569, guid: 37ba178fee2ed574eb08e7f4b07ecd11, type: 3}
-  instantiateRate: 30
 --- !u!114 &34965084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,7 +924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -37, y: -239}
+  m_AnchoredPosition: {x: -37, y: -306.8}
   m_SizeDelta: {x: 50, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &76277572
@@ -940,7 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.67058825, g: 0.64705884, b: 0.50980395, a: 1}
+  m_Color: {r: 0.8431373, g: 0.7294118, b: 0.10196079, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

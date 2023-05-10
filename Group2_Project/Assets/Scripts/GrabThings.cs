@@ -32,6 +32,10 @@ public class GrabThings : MonoBehaviour
         
     }
 
+    private void Start() {
+        this.AddComponent<SpawnThings>();
+    }
+
     /// <summary>
     /// Method for picking up item.
     /// </summary>
@@ -105,6 +109,7 @@ public class GrabThings : MonoBehaviour
                 for (int i = 0; i < 1; i++) {
                     AddScore();
                 }
+
             }
         }
     }

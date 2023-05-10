@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     private GameObject scoreParent;
     private int score = 0;
-    private int treasureCount = 0;
+    public int treasureCount = 0;
     private Text scoreText;
     
 	[SerializeField]
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour {
 
     private void UpdateScore() {
         scoreText.text = ""+score;
-        moneyBarSlider.value += score;
+        moneyBarSlider.value = moneyBarSlider.value + score;
     }
 
     public void AddScore(int newScoreValue) {

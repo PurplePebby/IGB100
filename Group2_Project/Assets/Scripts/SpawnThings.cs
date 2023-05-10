@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnThings : MonoBehaviour
 {
@@ -11,48 +12,51 @@ public class SpawnThings : MonoBehaviour
     private List<int> Spawnned = new List<int>();
 
     private int treasureCount;
-    public float instantiateRate = 10f;
-    private float nextInstantiate;
+    //public float instantiateRate = 10f;
+    //private float nextInstantiate;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        SpawnTreasure();
-        nextInstantiate = Time.time + instantiateRate;
-        
+        treasureCount = GameManager.instance.treasureCount;
+        if (checkTreasure() == true) {
+            SpawnTreasure();
+        }  
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown("e")) {
-        //    Spawnned.Clear();
-        //    SpawnTreasure();
-        //}
-        //if (treasureCount > 3) {
-            
-        //}
-        //if (Time.time > nextInstantiate && treasureCount < 5) {
-        //    ideally would like to add a check
-            
-        //    nextInstantiate = Time.time + instantiateRate;
-        //}
+    void Update() {
+        treasureCount = GameManager.instance.treasureCount;
+        StartCoroutine(spawnthings());
     }
 
     //randomly select a treasure to spawn
     private int SelectTreasure() {
-        int selected = Random.Range(0, treasures.Count);
+        int selected = 0;//Random.Range(0, treasures.Count);
         return selected;
     }
 
     //randonly selects spawn location
     private int SelectLocation() {
+        Debug.Log("Is it null? "+spawnLocations[0]);
         int selected = Random.Range(0, spawnLocations.Count);
+        //Debug.Log("Selected location:" + selected);
         return selected;
     }
-    private void SpawnTreasure() {
+
+    public bool checkTreasure() {
+        treasureCount = GameManager.instance.treasureCount;
+        if (treasureCount > 2) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public void SpawnTreasure() {
         //Debug.Log("Something Spawnned");\
+        Spawnned.Clear();
         for (int i = 0; i <= 10; i++) {
             int a = SelectTreasure();
             int b = SelectLocation();
@@ -65,5 +69,12 @@ public class SpawnThings : MonoBehaviour
         }      
     }
 
+
+    private IEnumerator spawnthings() {
+        if (checkTreasure() == true) {
+            SpawnTreasure();
+        }
+        yield return new WaitForSeconds(3);
+    }
 
 }
