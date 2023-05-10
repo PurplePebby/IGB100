@@ -8,6 +8,7 @@ public class GrabThings : MonoBehaviour
 {
     //FROM
     //https://www.patrykgalach.com/2020/03/16/pick-up-items-in-unity/
+
     // Reference to the character camera.
     [SerializeField]
     private Camera characterCamera;
@@ -27,7 +28,7 @@ public class GrabThings : MonoBehaviour
     private void Update() {
 
         CastRays();
-        DetectBoat();
+        DetectTreasureChest();
         
     }
 
@@ -83,7 +84,7 @@ public class GrabThings : MonoBehaviour
         //item.Rb.AddForce(item.transform.forward * 2, ForceMode.VelocityChange);
     }
 
-    private void DetectBoat() {
+    private void DetectTreasureChest() {
         // If no, try to pick item in front of the player
         // Create ray from center of the screen
         var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
@@ -99,8 +100,8 @@ public class GrabThings : MonoBehaviour
             else if (interactable == false) {
                 StartCoroutine(GameManager.instance.HideIfNoInteract());
             }
-            if (hit.transform.GameObject().tag == "Boat" && Input.GetKey("e") && useSlot.transform.childCount >= 1) {
-                // Pick it
+            if (hit.transform.GameObject().tag == "TreasureDropOff" && Input.GetKey("e")) {
+                //Dropoff Treasure
                 for (int i = 0; i < 1; i++) {
                     AddScore();
                 }
@@ -127,13 +128,13 @@ public class GrabThings : MonoBehaviour
             }
 
             // If object has PickableItem class
-            if (Input.GetKey("e") && pickable && treasureCount <=3) {
+            if (Input.GetKey("e") && pickable && treasureCount <3) {
 
                 // Pick it
                 PickItem(pickable);
 
             }
-            else {
+            else if (treasureCount == 3) {
                 DropItem(pickable);
             }
             //GameManager.instance.ShowE(false);
@@ -141,10 +142,11 @@ public class GrabThings : MonoBehaviour
     }
     public void AddScore() {
         for (int i = 0; i < slot.Length; i++) {
-            if (slot[i].transform.childCount == 1) {
+            if (slot[i].transform.childCount == 1) {               
+                //Debug.Log("Score Added");
                 Destroy(slot[i].transform.GetChild(0).gameObject);
                 GameManager.instance.AddCount(-1);
-                GameManager.instance.AddScore(1);
+                GameManager.instance.AddScore(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
             }
         }
         treasureCount =- treasureCount;

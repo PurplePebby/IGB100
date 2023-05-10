@@ -8,6 +8,7 @@ TagManager:
   - Boat
   - Enemy
   - UI
+  - TreasureDropOff
   layers:
   - Default
   - TransparentFX

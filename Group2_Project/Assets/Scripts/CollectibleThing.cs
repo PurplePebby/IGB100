@@ -12,6 +12,7 @@ public class CollectibleThing : MonoBehaviour
     // Reference to the rigidbody
     private Rigidbody rb;
     public Rigidbody Rb => rb;
+    public int moneyValue;
 
     /// <summary>
     /// Method called on initialization.
@@ -19,5 +20,6 @@ public class CollectibleThing : MonoBehaviour
     private void Awake() {
         // Get reference to the rigidbody
         rb = GetComponent<Rigidbody>();
+
     }
 }

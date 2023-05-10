@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bccfc1ec253c645a3d6d1a21e49ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyValue: 5
 --- !u!135 &-1602956578530340010
 SphereCollider:
   m_ObjectHideFlags: 0

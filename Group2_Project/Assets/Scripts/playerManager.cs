@@ -10,7 +10,10 @@ public class playerManager : MonoBehaviour
 	[SerializeField]
 	[Tooltip("The player's max oxygen.")] private float maxOxygen;
 
-	[SerializeField]
+    [SerializeField]
+    [Tooltip("The UI slider used to show money.")] private float maxMoney;
+
+    [SerializeField]
 	[Tooltip("How fast the player will take damage when drowning.")] private float drownDPS = 1;
 	[SerializeField]
 	[Tooltip("The speed that the player regains their breath. Measured in seconds of oxygen per second.")] private float breathSpeed;
@@ -31,6 +34,7 @@ public class playerManager : MonoBehaviour
     {
 		GameManager.instance.SetMaxHealth(maxHealth);
 		GameManager.instance.SetMaxOxygen(maxOxygen);
+		GameManager.instance.SetMaxMoney(maxMoney);
 
 		GameManager.instance.drownDPS = drownDPS;
 	}

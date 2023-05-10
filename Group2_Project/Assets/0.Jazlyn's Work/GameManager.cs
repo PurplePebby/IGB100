@@ -20,7 +20,10 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	[Tooltip("The UI slider used to show oxygen.")] private Slider oxygenBarSlider;
 
-	[SerializeField]
+    [SerializeField]
+    [Tooltip("The UI slider used to show money.")] private Slider moneyBarSlider;
+
+    [SerializeField]
 	private GameObject pauseMenu;
 	[SerializeField]
 	private GameObject gameOverScreen;
@@ -115,10 +118,15 @@ public class GameManager : MonoBehaviour {
     {
         UpdateHealth(-drownDPS * Time.deltaTime);
 	}
-	#endregion
+    #endregion
 
-	private void UpdateScore() {
-        scoreText.text = "Score: " + score;
+    public void SetMaxMoney(float money) {
+        moneyBarSlider.maxValue = money;
+    }
+
+    private void UpdateScore() {
+        scoreText.text = ""+score;
+        moneyBarSlider.value += score;
     }
 
     public void AddScore(int newScoreValue) {
