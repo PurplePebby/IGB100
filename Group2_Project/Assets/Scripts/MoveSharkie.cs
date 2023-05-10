@@ -28,15 +28,15 @@ public class MoveSharkie : MonoBehaviour
     void Update() {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
         if (PlayerPosition == null) {
-            //FishySwimPath()
+            FishySwimPath();    
 
-            if (transform.position.y != points[current].position.y) { 
-                //smth weird happens, not sure why
-                StartCoroutine(goHome(currentPosition, 1f)); 
-            }
-            else{
-                StartCoroutine(FishySwimPathV2());
-            }
+            //if (transform.position.y != points[current].position.y) { 
+            //    //smth weird happens, not sure why
+            //    StartCoroutine(goHome(currentPosition, 1f)); 
+            //}
+            //else{
+            //    StartCoroutine(FishySwimPathV2());
+            //}
         }
         else {
             
@@ -87,6 +87,7 @@ public class MoveSharkie : MonoBehaviour
         else {
             current = (current + 1) % points.Length;
         }
+        
     }
 
     IEnumerator FishySwimPathV2() {
