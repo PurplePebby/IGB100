@@ -14,17 +14,11 @@ public class GameManager : MonoBehaviour {
     private int treasureCount = 0;
     private Text scoreText;
     
-    [SerializeField]
-    [Tooltip("The player's max health.")] private float maxHealth;
 	[SerializeField]
 	[Tooltip("The UI slider used to show health.")] private Slider healthBarSlider;
 
 	[SerializeField]
-	[Tooltip("The player's max oxygen.")] private float maxOxygen;
-	[SerializeField]
 	[Tooltip("The UI slider used to show oxygen.")] private Slider oxygenBarSlider;
-    [SerializeField]
-    [Tooltip("How fast the player will take damage when drowning.")] private float drownDPS = 1;
 
 	[SerializeField]
 	private GameObject pauseMenu;
@@ -32,6 +26,8 @@ public class GameManager : MonoBehaviour {
 	private GameObject gameOverScreen;
     [SerializeField]
     private GameObject Panels;
+
+    [NonSerialized] public float drownDPS;
 
     private bool paused = false;
     public bool Paused
@@ -57,8 +53,7 @@ public class GameManager : MonoBehaviour {
 
         UpdateScore();
 
-        SetMaxHealth(maxHealth);
-        SetMaxOxygen(maxOxygen);
+        
 
 		Resume();
 		Cursor.lockState = CursorLockMode.Locked;
@@ -90,7 +85,7 @@ public class GameManager : MonoBehaviour {
     }
 	public void UpdateHealth(float value)
 	{
-		healthBarSlider.value = Mathf.Clamp(healthBarSlider.value + value, 0, this.maxHealth);
+		healthBarSlider.value = Mathf.Clamp(healthBarSlider.value + value, 0, healthBarSlider.maxValue);
 		if (healthBarSlider.value <= 0)
 		{
 			GameOver();
@@ -109,7 +104,7 @@ public class GameManager : MonoBehaviour {
 	}
 	public void UpdateOxygen(float value)
     {
-		oxygenBarSlider.value = Mathf.Clamp(oxygenBarSlider.value + value, 0, this.maxOxygen);
+		oxygenBarSlider.value = Mathf.Clamp(oxygenBarSlider.value + value, 0, oxygenBarSlider.maxValue);
         if (oxygenBarSlider.value <= 0)
         {
             Drowning();

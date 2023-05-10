@@ -458,8 +458,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f450d71c21aa4244499f7196ea060624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   healthBarSlider: {fileID: 85378210}
+  maxOxygen: 100
   oxygenBarSlider: {fileID: 1496345631}
+  drownDPS: 1
   pauseMenu: {fileID: 1835760311}
   gameOverScreen: {fileID: 1698140163}
 --- !u!114 &34965083
@@ -10600,7 +10603,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7eb96760641a24b964eca24a9c3349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breathSpeed: 5
   iFrames: 0.5
+  waterLevelPoint: {fileID: 1791974026}
 --- !u!54 &1253495255
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12882,13 +12887,11 @@ GameObject:
   - component: {fileID: 1495038511}
   - component: {fileID: 1495038510}
   - component: {fileID: 1495038512}
-  - component: {fileID: 1495038513}
   - component: {fileID: 1495038508}
   - component: {fileID: 1495038507}
   - component: {fileID: 1495038506}
   - component: {fileID: 1495038505}
   - component: {fileID: 1495038504}
-  - component: {fileID: 1495038514}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -13102,7 +13105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495038503}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b01eb71350e7fc140aec8e95742090e7, type: 3}
   m_Name: 
@@ -13113,8 +13116,8 @@ MonoBehaviour:
   StrafeSwimSpeed: 4
   RotationSpeed: 1
   SpeedChangeRate: 0.4
-  JumpHeight: 1.5
-  Gravity: -9.81
+  JumpHeight: 15
+  Gravity: -4
   _terminalVelocity: 3
   JumpTimeout: 1
   FallTimeout: 1.5
@@ -13127,52 +13130,6 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 1218917546}
   TopClamp: 89
   BottomClamp: -89
---- !u!114 &1495038513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495038503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65d006467663ab488f96c87740d10db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 4
-  SprintSpeed: 6
-  RotationSpeed: 1
-  SpeedChangeRate: 10
-  JumpHeight: 2
-  Gravity: -3
-  JumpTimeout: 0.1
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.5
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  CinemachineCameraTarget: {fileID: 1218917546}
-  TopClamp: 90
-  BottomClamp: -90
---- !u!114 &1495038514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495038503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a617f9de665c894494b21b02f5a7ab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 10
-  maxOxygen: 20
-  drownDPS: 1
-  breathSpeed: 5
-  waterLevelPoint: {fileID: 1791974026}
 --- !u!1 &1496345629
 GameObject:
   m_ObjectHideFlags: 0
