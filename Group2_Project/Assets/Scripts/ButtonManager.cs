@@ -8,7 +8,7 @@ public class ButtonManager : MonoBehaviour
 
     public void StartButton()
     {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		SceneManager.LoadScene("Main_2");
 
 	}
 
