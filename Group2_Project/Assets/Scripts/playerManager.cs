@@ -21,13 +21,11 @@ public class playerManager : MonoBehaviour
 	[SerializeField]
 	[Tooltip("The point that marks the top of the water.")] private GameObject waterLevelPoint;
 
-	private BelowWaterMovement waterMove;
-	private AboveWaterMovement landMove;
+	private PlayerMovementController playerMove;
 
 	public void Awake()
 	{
-		waterMove = gameObject.GetComponent<BelowWaterMovement>();
-		landMove = gameObject.GetComponent<AboveWaterMovement>();
+		playerMove = gameObject.GetComponent<PlayerMovementController>();
 	}
 	// Start is called before the first frame update
 	void Start()
@@ -48,17 +46,21 @@ public class playerManager : MonoBehaviour
 
 	private void UnderWaterCheck()
 	{
-		if (transform.position.y < waterLevelPoint.transform.position.y)
+		if (transform.position.y < waterLevelPoint.transform.position.y - 0.5f)
 		{
 			GameManager.instance.UpdateOxygen(-1 * Time.deltaTime);
-			waterMove.enabled = true;
-			landMove.enabled = false;
 		}
 		else
 		{
 			GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
-			waterMove.enabled = false;
-			landMove.enabled = true;
+		}
+		if (transform.position.y < waterLevelPoint.transform.position.y)
+		{
+			playerMove.underWater = true;
+		}
+		else
+		{
+			playerMove.underWater = false;
 		}
 	}
 }

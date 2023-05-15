@@ -8,8 +8,9 @@ public class ButtonManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene("Main");
-    }
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+	}
 
 	public void QuitButton()
 	{

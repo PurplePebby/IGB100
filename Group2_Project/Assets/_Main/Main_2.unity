@@ -14002,7 +14002,6 @@ GameObject:
   - component: {fileID: 1495038511}
   - component: {fileID: 1495038510}
   - component: {fileID: 1495038512}
-  - component: {fileID: 1495038513}
   - component: {fileID: 1495038508}
   - component: {fileID: 1495038507}
   - component: {fileID: 1495038506}
@@ -14210,22 +14209,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495038503}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b01eb71350e7fc140aec8e95742090e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 4
   SprintSpeed: 6
+  SpeedChangeRate: 18
+  RotationSpeed: 1
   SwimSpeed: 8
   VerticalSwimSpeed: 6
   StrafeSwimSpeed: 4
-  RotationSpeed: 1
-  SpeedChangeRate: 0.4
+  floatyness: 2
+  sinkGravity: -3
+  maxSinkRate: 6.5
   JumpHeight: 1.5
-  Gravity: -9.81
-  _terminalVelocity: 3
-  JumpTimeout: 1
+  Gravity: -15
+  _terminalVelocity: 7.5
+  JumpTimeout: 0.1
   FallTimeout: 1.5
+  underWater: 0
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.5
@@ -14235,35 +14239,6 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 1218917546}
   TopClamp: 89
   BottomClamp: -89
---- !u!114 &1495038513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495038503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b65d006467663ab488f96c87740d10db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 4
-  SprintSpeed: 6
-  RotationSpeed: 1
-  SpeedChangeRate: 10
-  JumpHeight: 2
-  Gravity: -3
-  JumpTimeout: 0.1
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.5
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  CinemachineCameraTarget: {fileID: 1218917546}
-  TopClamp: 90
-  BottomClamp: -90
 --- !u!114 &1495038514
 MonoBehaviour:
   m_ObjectHideFlags: 0
