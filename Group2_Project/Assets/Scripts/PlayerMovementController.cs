@@ -139,24 +139,29 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			if (underWater)
+			if (!GameManager.instance.Paused)
 			{
-				Sink();
-				GroundedCheck();
-				Swim();
-			}
-			else
-			{
-				JumpAndGravity();
-				GroundedCheck();
-				Move();
-			}
-			
+				if (underWater)
+				{
+					Sink();
+					GroundedCheck();
+					Swim();
+				}
+				else
+				{
+					JumpAndGravity();
+					GroundedCheck();
+					Move();
+				}
+			}					
 		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (!GameManager.instance.Paused)
+			{
+				CameraRotation();
+			}				
 		}
 
 		private void GroundedCheck()

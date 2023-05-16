@@ -40,8 +40,10 @@ public class playerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		UnderWaterCheck();
-
+		if (!GameManager.instance.Paused)
+		{
+			UnderWaterCheck();
+		}
 	}
 
 	private void UnderWaterCheck()

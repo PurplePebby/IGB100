@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c33cadbef64eb04c9c5ef6ad31eaef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutsceneImages: []
 --- !u!1001 &39139333
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1339,7 +1340,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 34965084}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: StartButton
+        m_MethodName: RestartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2754,7 +2755,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 34965084}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: StartButton
+        m_MethodName: RestartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

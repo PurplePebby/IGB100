@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour {
         
 
 		Resume();
-		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	private void Update()
@@ -155,6 +154,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void GameOver() {
 		paused = true;
+		Time.timeScale = 0;
 		gameOverScreen.SetActive(true);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviour {
     public void Pause()
     {
         paused = true;
+        Time.timeScale = 0;
         pauseMenu.SetActive(true);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
@@ -171,7 +172,8 @@ public class GameManager : MonoBehaviour {
     public void Resume()
     {
         paused = false;
-        pauseMenu.SetActive(false);
+		Time.timeScale = 1;
+		pauseMenu.SetActive(false);
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
