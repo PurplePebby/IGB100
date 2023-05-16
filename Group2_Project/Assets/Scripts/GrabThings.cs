@@ -96,9 +96,9 @@ public class GrabThings : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 5f)) {
             // If object has PickableItem class
             var interactable = hit.transform.GetComponent<InteractableThing>();
-            if (interactable) {
+            if (interactable && interactable.tag == "TreasureDropOff" ) {
 
-                StartCoroutine(GameManager.instance.ShowIfInteract());
+                StartCoroutine(GameManager.instance.ShowIfInteract("deposit treasure"));
             }
             else if (interactable == false) {
                 StartCoroutine(GameManager.instance.HideIfNoInteract());
@@ -125,7 +125,7 @@ public class GrabThings : MonoBehaviour
             var interactable = hit.transform.GetComponent<InteractableThing>();
             if (interactable) {
                 
-                StartCoroutine(GameManager.instance.ShowIfInteract());
+                StartCoroutine(GameManager.instance.ShowIfInteract("pick up treasure"));
             }
             else {
                 StartCoroutine(GameManager.instance.HideIfNoInteract());

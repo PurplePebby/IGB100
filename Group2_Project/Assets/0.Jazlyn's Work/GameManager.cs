@@ -10,9 +10,11 @@ using static UnityEngine.Rendering.DebugUI;
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     private GameObject scoreParent;
+    private GameObject collectParent;
     private int score = 0;
     public int treasureCount = 0;
     private Text scoreText;
+    private Text collectText;
     
 	[SerializeField]
 	[Tooltip("The UI slider used to show health.")] private Slider healthBarSlider;
@@ -184,8 +186,12 @@ public class GameManager : MonoBehaviour {
         //yield return null;
     }
 
-    public IEnumerator ShowIfInteract() {
+    public IEnumerator ShowIfInteract(string a) {
         Panels.SetActive(true);
+        //Debug.Log(collectText);
+        collectParent = GameObject.Find("InteractText");
+        collectText = collectParent.GetComponent<Text>();
+        collectText.text = "Press 'E' to " + a;
         yield return null;
         //   yield return null;
     }    
