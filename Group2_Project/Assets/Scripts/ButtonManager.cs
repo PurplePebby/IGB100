@@ -5,13 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-	public GameObject[] cutsceneImages;
-
-	private int currentCutSceneIndex = 0;
 
 	public void RestartButton()
     {
-		SceneManager.LoadScene("Main_2");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 	}
 
@@ -24,22 +21,7 @@ public class ButtonManager : MonoBehaviour
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
-
-	public void CutsceneForward()
-	{
-		if (currentCutSceneIndex < cutsceneImages.Length - 1)
-		{
-			Debug.Log(currentCutSceneIndex);
-			cutsceneImages[currentCutSceneIndex].SetActive(false);
-			currentCutSceneIndex++;
-			cutsceneImages[currentCutSceneIndex].SetActive(true);
-		}
-		else
-		{
-			NextScene();
-		}
-		
-	}
+	
 
 	public void QuitButton()
 	{

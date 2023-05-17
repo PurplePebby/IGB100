@@ -11,6 +11,7 @@ TagManager:
   - TreasureDropOff
   - O2Tank
   - CannonButton
+  - Spear
   layers:
   - Default
   - TransparentFX

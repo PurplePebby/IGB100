@@ -144,8 +144,10 @@ public class GrabThings : MonoBehaviour
                 //change to camera for cannon
                 newCamera.gameObject.SetActive(true);
                 currentCamera.gameObject.SetActive(false);
+				Cursor.visible = false;
+				Cursor.lockState = CursorLockMode.Confined;
 
-            }
+			}
         }
     }
 

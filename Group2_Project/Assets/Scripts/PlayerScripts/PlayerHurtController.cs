@@ -23,7 +23,7 @@ public class PlayerHurtController : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Enemy") && !invincible){
-			GameManager.instance.UpdateHealth(-other.GetComponentInParent<MoveSharkie>().damage);
+			GameManager.instance.UpdateHealth(-other.GetComponentInParent<FishStats>().damage);
 			invincible = true;
 			StartCoroutine(InvincibleTimer());
 		}
