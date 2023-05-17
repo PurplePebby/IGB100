@@ -16,12 +16,17 @@ public class playerManager : MonoBehaviour
     [SerializeField]
 	[Tooltip("How fast the player will take damage when drowning.")] private float drownDPS = 1;
 	[SerializeField]
+	[Tooltip("How long it take for the player to start losing oxygen.")] private float oxygenDepletionDelay = 2f;
+	[SerializeField]
 	[Tooltip("The speed that the player regains their breath. Measured in seconds of oxygen per second.")] private float breathSpeed;
+	[SerializeField]
+	[Tooltip("Does the player gain oxygen when above water.")] private bool refillAboveWater = false;
 
 	[SerializeField]
 	[Tooltip("The point that marks the top of the water.")] private GameObject waterLevelPoint;
 
 	private PlayerMovementController playerMove;
+	private bool canDrown = false;
 
 	public void Awake()
 	{
@@ -50,11 +55,22 @@ public class playerManager : MonoBehaviour
 	{
 		if (transform.position.y < waterLevelPoint.transform.position.y - 0.5f)
 		{
-			GameManager.instance.UpdateOxygen(-1 * Time.deltaTime);
+			if (canDrown)
+			{
+				GameManager.instance.UpdateOxygen(-1 * Time.deltaTime);
+			}
+			else
+			{
+				StartCoroutine(Timer());
+			}
 		}
 		else
 		{
-			GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
+			canDrown = false;
+			if (refillAboveWater)
+			{
+				GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
+			}
 		}
 		if (transform.position.y < waterLevelPoint.transform.position.y)
 		{
@@ -63,6 +79,12 @@ public class playerManager : MonoBehaviour
 		else
 		{
 			playerMove.underWater = false;
+
 		}
+	}
+	private IEnumerator Timer()
+	{
+		yield return new WaitForSeconds(oxygenDepletionDelay);
+		canDrown = true;
 	}
 }

@@ -185,7 +185,7 @@ public class GrabThings : MonoBehaviour
             if (slot[i].transform.childCount == 1) {               
                 //Debug.Log("Score Added");
                 Destroy(slot[i].transform.GetChild(0).gameObject);
-                GameManager.instance.AddCount(-1);
+                GameManager.instance.AddMoney(-1);
                 GameManager.instance.AddScore(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
             }
         }
