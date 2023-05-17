@@ -12,6 +12,7 @@ TagManager:
   - O2Tank
   - CannonButton
   - Spear
+  - Pew
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,10 @@ public class MoveSharkie : MonoBehaviour
     public Transform[] points;
     int current;
     public float speed = 5f;
-    
+
+    [SerializeField]
+    private Vector3 rotation;
+
     private Transform PlayerPosition;
 
     public float CircleRadius = 14;
@@ -73,7 +76,7 @@ public class MoveSharkie : MonoBehaviour
             transform.LookAt(P);
 
             //remove this if shark model is facing in the wrong direction
-            transform.Rotate(0f, 90f, 0f, Space.Self);
+            transform.Rotate(rotation, Space.Self);
         }
 
     }

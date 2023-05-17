@@ -8,7 +8,11 @@ public class Movepath : MonoBehaviour
     int current;
     public float speed = 5f;
 
+    [SerializeField]
+    private Vector3 rotation;
+
     private Vector3 positionOffset;
+    
     private Vector3 currentPosition;
     private float angle;
     // Start is called before the first frame update
@@ -44,7 +48,7 @@ public class Movepath : MonoBehaviour
             transform.LookAt(P);
 
             //remove this if shark model is facing in the wrong direction
-            transform.Rotate(0f, 90f, 0f, Space.Self);
+            transform.Rotate(rotation, Space.Self);
         }
 
     }
