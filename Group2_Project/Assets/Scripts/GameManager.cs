@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ public class GameManager : MonoBehaviour {
     public int treasureCount = 0;
     private Text scoreText;
     private Text collectText;
-    
-	[SerializeField]
+
+    CinemachineBrain myBrain; 
+    CinemachineVirtualCamera startCam;
+
+    [SerializeField]
 	[Tooltip("The UI slider used to show health.")] private Slider healthBarSlider;
 
 	[SerializeField]
@@ -25,14 +29,22 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     [Tooltip("The UI slider used to show money.")] private Slider moneyBarSlider;
 
-    [SerializeField]
+	[SerializeField]
 	private GameObject pauseMenu;
 	[SerializeField]
 	private GameObject gameOverScreen;
-    [SerializeField]
-    private GameObject Panels;
+	[SerializeField]
+	private GameObject victoryCutscene;
+	[SerializeField]
+	private GameObject pirateCutscene;
+	[SerializeField]
+	private GameObject pirateEnding;
+	[SerializeField]
+	private GameObject grandmaEnding;
+	[SerializeField]
+	private GameObject Panels;
 
-    [NonSerialized] public float drownDPS;
+	[NonSerialized] public float drownDPS;
 
     private bool paused = false;
     public bool Paused
@@ -50,13 +62,15 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        //startCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
+        
         scoreParent = GameObject.Find("Score Text");
         scoreText = scoreParent.GetComponent<Text>(); 
         
         
         scoreText = scoreParent.GetComponent<Text>();
 
-        UpdateScore();
+        UpdateMoney();
 
         
 
@@ -70,11 +84,14 @@ public class GameManager : MonoBehaviour {
 			if (Paused)
 			{
 				Resume();
+				HidePauseMenu();
+				
 				
 			}
 			else
 			{
 				Pause();
+				ShowPauseMenu();
 			}
 		}		
 	}
@@ -119,68 +136,95 @@ public class GameManager : MonoBehaviour {
     {
         UpdateHealth(-drownDPS * Time.deltaTime);
 	}
-    #endregion
+	#endregion
 
-    public void SetMaxMoney(float money) {
-        moneyBarSlider.maxValue = money;
-    }
+	public void SetMaxMoney(float money)
+	{
+		moneyBarSlider.maxValue = money;
+	}
 
-    private void UpdateScore() {
-        scoreText.text = ""+score;
-        moneyBarSlider.value = moneyBarSlider.value + score;
-    }
+	private void UpdateMoney()
+	{
+		scoreText.text = "" + score;
+		moneyBarSlider.value = moneyBarSlider.value + score;
+		if (moneyBarSlider.value >= moneyBarSlider.maxValue)
+		{
+			Pause();
+			victoryCutscene.SetActive(true);
+		}
+	}
 
-    public void AddScore(int newScoreValue) {
-        score += newScoreValue;
+	public void AddScore(int newScoreValue)
+	{
+		score += newScoreValue;
 
-        UpdateScore();
-    }
+		UpdateMoney();
+	}
 
-    public void AddCount(int newScoreValue) {
-        //Counts how much treasure has spawned into the scene
-        //then prints it out to the debug
-        treasureCount += newScoreValue;
-        Debug.Log("Amount of treasure in scene is "+ treasureCount);
-    }
+	public void AddMoney(int newMoneyValue)
+	{
+		//Counts how much treasure has spawned into the scene
+		//then prints it out to the debug
+		treasureCount += newMoneyValue;
+		Debug.Log("Amount of treasure in scene is " + treasureCount);
+	}
 
-    public void RemoveScore(int newScoreValue) {
-        score -= newScoreValue;
+	public void RemoveMoney(int newMoneyValue)
+	{
+		score -= newMoneyValue;
 
-        UpdateScore();
-    }
+		UpdateMoney();
+	}
 
-    /// <summary>
-    /// Can GameOVER, Pause and Resume be in a separate script?
-    /// </summary>
-    public void GameOver() {
+	public void PlayPirateEnding()
+	{
+		pirateEnding.SetActive(true);
+	}
+
+	public void PlayGrandmaEnding()
+	{
+		grandmaEnding.SetActive(true);
+	}
+
+	/// <summary>
+	/// Can GameOVER, Pause and Resume be in a separate script?
+	/// </summary>
+	public void GameOver()
+	{
+		Pause();
+		gameOverScreen.SetActive(true);
+	}
+
+	public void Pause()
+	{
 		paused = true;
 		Time.timeScale = 0;
-		gameOverScreen.SetActive(true);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 	}
 
-    public void Pause()
-    {
-        paused = true;
-        Time.timeScale = 0;
-        pauseMenu.SetActive(true);
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.None;
+	public void ShowPauseMenu()
+	{
+		pauseMenu.SetActive(true);
 	}
 
-    public void Resume()
-    {
-        paused = false;
+	public void Resume()
+	{
+		paused = false;
 		Time.timeScale = 1;
 		pauseMenu.SetActive(false);
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
+	public void HidePauseMenu()
+	{
+		pauseMenu.SetActive(false);
+	}
 
-    //GLOBAL COROUTINES
-    
-    public void ShowE(bool state) {
+
+	//GLOBAL COROUTINES
+
+	public void ShowE(bool state) {
         //attach a canvas
         //display text
         Panels.SetActive(state);
