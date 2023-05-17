@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ public class GameManager : MonoBehaviour {
     public int treasureCount = 0;
     private Text scoreText;
     private Text collectText;
-    
-	[SerializeField]
+
+    CinemachineBrain myBrain; 
+    CinemachineVirtualCamera startCam;
+
+    [SerializeField]
 	[Tooltip("The UI slider used to show health.")] private Slider healthBarSlider;
 
 	[SerializeField]
@@ -50,6 +54,8 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        //startCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
+        
         scoreParent = GameObject.Find("Score Text");
         scoreText = scoreParent.GetComponent<Text>(); 
         

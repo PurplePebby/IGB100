@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - UI
   - TreasureDropOff
+  - O2Tank
+  - CannonButton
   layers:
   - Default
   - TransparentFX

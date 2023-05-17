@@ -5,12 +5,12 @@ using UnityEngine;
 public class GetOnBoat : MonoBehaviour
 {
     [SerializeField]
-    private GameObject slot;
+    private GameObject pos;
     
     [SerializeField]
     private GameObject player;
    
-    // Start is called before the first frame update
+    // TP onto boat
     void OnTriggerStay(Collider other) {
         CharacterController cc = player.GetComponent<CharacterController>();
         if (other.tag == "Player"){
@@ -23,12 +23,14 @@ public class GetOnBoat : MonoBehaviour
                 Debug.Log("Button press");
 
                 cc.enabled = false;
-                player.transform.position = slot.transform.position;
+                player.transform.position = pos.transform.position;
+                
                 cc.enabled = true;
             }
 
         }
         //player can just jump off boat prolly ngl
     }
+
 
 }

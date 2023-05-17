@@ -1,12 +1,18 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class GrabThings : MonoBehaviour
 {
     //FROM
     //https://www.patrykgalach.com/2020/03/16/pick-up-items-in-unity/
+    [SerializeField]
+    CinemachineVirtualCamera currentCamera;
+    [SerializeField]
+    CinemachineVirtualCamera newCamera;
 
     // Reference to the character camera.
     [SerializeField]
@@ -15,6 +21,13 @@ public class GrabThings : MonoBehaviour
     [SerializeField]
     private GameObject[] slot;
     
+
+    //get position for player to tp to cannon
+    [SerializeField]
+    private GameObject cannonPos;
+
+
+
     private GameObject useSlot;
     // Reference to the currently held item.
     private CollectibleThing thing;
@@ -27,7 +40,7 @@ public class GrabThings : MonoBehaviour
     private void Update() {
 
         CastRays();
-        DetectTreasureChest();
+        DetectBoatItem();
         
     }
 
@@ -87,7 +100,7 @@ public class GrabThings : MonoBehaviour
         //item.Rb.AddForce(item.transform.forward * 2, ForceMode.VelocityChange);
     }
 
-    private void DetectTreasureChest() {
+    private void DetectBoatItem() {
         // If no, try to pick item in front of the player
         // Create ray from center of the screen
         var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
@@ -96,11 +109,19 @@ public class GrabThings : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 5f)) {
             // If object has PickableItem class
             var interactable = hit.transform.GetComponent<InteractableThing>();
-            if (interactable && interactable.tag == "TreasureDropOff" ) {
+            if (interactable.tag == "O2Tank" && interactable) {
+                StartCoroutine(GameManager.instance.ShowIfInteract("refill oxygen"));
+            }
+            if (interactable.tag == "TreasureDropOff" && interactable) {
 
                 StartCoroutine(GameManager.instance.ShowIfInteract("deposit treasure"));
             }
-            else if (interactable == false) {
+            if (interactable.tag == "CannonButton" && interactable) {
+
+                StartCoroutine(GameManager.instance.ShowIfInteract("use the pirate cannon"));
+            }
+
+            if (interactable == null) {
                 StartCoroutine(GameManager.instance.HideIfNoInteract());
             }
             if (hit.transform.GameObject().tag == "TreasureDropOff" && Input.GetKey("e")) {
@@ -108,6 +129,21 @@ public class GrabThings : MonoBehaviour
                 for (int i = 0; i < 1; i++) {
                     AddScore();
                 }
+
+            }
+            if (hit.transform.GameObject().tag == "O2Tank" && Input.GetKey("e")) {
+                //Refill Tank
+                GameManager.instance.SetOxygen(100);
+
+            }
+            if (hit.transform.GameObject().tag == "CannonButton" && Input.GetKey("e")) {
+                StartCoroutine(GameManager.instance.HideIfNoInteract());
+                //TP Player
+                CharacterController cc = this.GetComponent<CharacterController>();
+                cc.enabled = false;
+                //change to camera for cannon
+                newCamera.gameObject.SetActive(true);
+                currentCamera.gameObject.SetActive(false);
 
             }
         }
