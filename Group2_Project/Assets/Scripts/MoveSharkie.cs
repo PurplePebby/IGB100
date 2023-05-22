@@ -24,26 +24,23 @@ public class MoveSharkie : MonoBehaviour
     private Vector3 currentPosition;
     private float angle;
 
+
+    private Quaternion _lookRotation;
+    private Vector3 _direction;
+
+    [SerializeField]
+    private GameObject waterLvl;
     public void Start() {
         current = 0;
     }
 
     void Update() {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
-        if (PlayerPosition == null) {
+        if (transform.position.y < waterLvl.transform.position.y || PlayerPosition == null) {
             FishySwimPath();    
-
-            //if (transform.position.y != points[current].position.y) { 
-            //    //smth weird happens, not sure why
-            //    StartCoroutine(goHome(currentPosition, 1f)); 
-            //}
-            //else{
-            //    StartCoroutine(FishySwimPathV2());
-            //}
         }
         else {
-            
-            StartCoroutine(FollowPlayer()); 
+                StartCoroutine(FollowPlayer()); 
         }
      
     }
@@ -84,7 +81,14 @@ public class MoveSharkie : MonoBehaviour
     private void FishySwimPath() {
         //enemy pathing https://www.youtube.com/watch?v=BGe5HDsyhkY
         ; if (transform.position != points[current].position) {
-            LookAtThing(points[current], 1);
+            //find the vector pointing from our position to the target
+            _direction = (points[current].position - transform.position).normalized;
+
+            //create the rotation we need to be in to look at the target
+            _lookRotation = Quaternion.LookRotation(_direction);
+
+            //rotate us over time according to speed until we are in the required rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * 0.2f);
             transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
         }
         else {
