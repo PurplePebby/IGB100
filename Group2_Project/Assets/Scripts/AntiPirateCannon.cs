@@ -2,7 +2,6 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class AntiPirateCannon : MonoBehaviour
 {
@@ -32,7 +31,10 @@ public class AntiPirateCannon : MonoBehaviour
                 newCamera.gameObject.SetActive(true);
                 currentCamera.gameObject.SetActive(false);
 
-            }
+				Cursor.visible = false;
+				Cursor.lockState = CursorLockMode.Confined;
+
+			}
         }
     }
     private void FollowMouse() {

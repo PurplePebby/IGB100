@@ -15,7 +15,7 @@ public class PirateMechanic : MonoBehaviour {
             //check health
             if (pirateHealth <= 0) {
                 //kill boat
-                return;
+                Destroy(this.gameObject);
             }
             else {
                 pirateHealth = pirateHealth - Dmg;

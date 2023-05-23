@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour {
 	}
 	#endregion
 
+	#region Money
 	public void SetMaxMoney(float money)
 	{
 		moneyBarSlider.maxValue = money;
@@ -176,6 +177,10 @@ public class GameManager : MonoBehaviour {
 		UpdateMoney();
 	}
 
+	#endregion
+
+	#region cutscenes and menus
+
 	public void PlayPirateEnding()
 	{
 		pirateEnding.SetActive(true);
@@ -186,9 +191,23 @@ public class GameManager : MonoBehaviour {
 		grandmaEnding.SetActive(true);
 	}
 
+	public void ShowPauseMenu()
+	{
+		pauseMenu.SetActive(true);
+	}
+
+	public void HidePauseMenu()
+	{
+		pauseMenu.SetActive(false);
+	}
+
+	#endregion
+
 	/// <summary>
 	/// Can GameOVER, Pause and Resume be in a separate script?
 	/// </summary>
+	/// 
+	#region Game states
 	public void GameOver()
 	{
 		Pause();
@@ -203,23 +222,18 @@ public class GameManager : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.None;
 	}
 
-	public void ShowPauseMenu()
-	{
-		pauseMenu.SetActive(true);
-	}
+	
 
 	public void Resume()
 	{
 		paused = false;
 		Time.timeScale = 1;
 		pauseMenu.SetActive(false);
+		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	public void HidePauseMenu()
-	{
-		pauseMenu.SetActive(false);
-	}
+	#endregion
 
 
 	//GLOBAL COROUTINES
