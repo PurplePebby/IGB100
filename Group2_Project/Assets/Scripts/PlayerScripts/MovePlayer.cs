@@ -71,7 +71,7 @@ public class MovePlayer : MonoBehaviour {
 
     void swim() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Debug.Log("Space");
+            //Debug.Log("Space");
             Vector3 upwards = transform.TransformDirection(Vector3.up);
             float swimSpeed = speed * 50;
             controller.SimpleMove(upwards * swimSpeed);

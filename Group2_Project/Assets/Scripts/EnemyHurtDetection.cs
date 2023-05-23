@@ -23,7 +23,7 @@ public class EnemyHurtDetection : MonoBehaviour
 			fishScript.DamageHealth(other.GetComponentInParent<MelleAttack>().damage);
 			invincible = true;
 			StartCoroutine(InvincibleTimer());
-			Debug.Log("You got me");
+			//Debug.Log("You got me");
 		}
 	}
 

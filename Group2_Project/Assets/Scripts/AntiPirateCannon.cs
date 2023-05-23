@@ -20,7 +20,7 @@ public class AntiPirateCannon : MonoBehaviour
     void Update() {
         
         if (myBrain.ActiveVirtualCamera == currentCamera){
-            Debug.Log("Active");
+            //Debug.Log("Active");
             //run cannon
             FollowMouse();
 

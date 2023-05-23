@@ -15,6 +15,11 @@ public class Movepath : MonoBehaviour
     
     private Vector3 currentPosition;
     private float angle;
+
+    private Quaternion lookRotation;
+    private Vector3 direction;
+    [SerializeField]
+    private float turnSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +35,15 @@ public class Movepath : MonoBehaviour
     private void MovePath() {
         //enemy pathing https://www.youtube.com/watch?v=BGe5HDsyhkY
         ; if (transform.position != points[current].position) {
-            LookAtNextPoint(points[current], 1);
             transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
+            //find the vector pointing from our position to the target
+            direction = (points[current].position - transform.position).normalized;
+
+            //create the rotation we need to be in to look at the target
+            lookRotation = Quaternion.LookRotation(direction);
+
+            //rotate us over time according to speed until we are in the required rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
         }
         else {
             current = (current + 1) % points.Length;

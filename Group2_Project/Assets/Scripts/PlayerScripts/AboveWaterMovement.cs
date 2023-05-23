@@ -218,7 +218,7 @@ namespace StarterAssets
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight -2f * Gravity);
-					Debug.Log("Should have jumped");
+					//Debug.Log("Should have jumped");
 				}
 
 				// jump timeout
@@ -226,7 +226,7 @@ namespace StarterAssets
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
-				Debug.Log("Grounded");
+				//Debug.Log("Grounded");
 			}
 			else
 			{

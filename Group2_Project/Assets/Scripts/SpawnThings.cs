@@ -38,7 +38,7 @@ public class SpawnThings : MonoBehaviour
 
     //randonly selects spawn location
     private int SelectLocation() {
-        Debug.Log("Is it null? "+spawnLocations[0]);
+        //Debug.Log("Is it null? "+spawnLocations[0]);
         int selected = Random.Range(0, spawnLocations.Count);
         //Debug.Log("Selected location:" + selected);
         return selected;
@@ -62,7 +62,7 @@ public class SpawnThings : MonoBehaviour
             int b = SelectLocation();
             if (Spawnned.Contains(b) == false || Spawnned == null) {
                 Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
-                Debug.Log("Spawn Location is: " + spawnLocations[b]);
+                //Debug.Log("Spawn Location is: " + spawnLocations[b]);
                 GameManager.instance.AddMoney(1);
                 Spawnned.Add(b);
             }

@@ -125,7 +125,7 @@ namespace StarterAssets
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
 			_playerInput = GetComponent<PlayerInput>();
-			Debug.Log("Enabled");
+			//Debug.Log("Enabled");
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -304,7 +304,7 @@ namespace StarterAssets
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * - 2f * Gravity);
-					Debug.Log("Should have jumped");
+					//Debug.Log("Should have jumped");
 				}
 
 				// jump timeout
@@ -312,7 +312,7 @@ namespace StarterAssets
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
-				Debug.Log("Grounded");
+				//Debug.Log("Grounded");
 			}
 			else
 			{
