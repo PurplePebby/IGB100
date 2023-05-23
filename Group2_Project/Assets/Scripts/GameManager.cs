@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	[Tooltip("The UI slider used to show oxygen.")] private Slider oxygenBarSlider;
 
-    [SerializeField]
-    [Tooltip("The UI slider used to show money.")] private Slider moneyBarSlider;
+    [Tooltip("The UI slider used to show money.")] public Slider moneyBarSlider;
 
 	[SerializeField]
 	private GameObject pauseMenu;
@@ -172,7 +171,9 @@ public class GameManager : MonoBehaviour {
 
 	public void RemoveMoney(int newMoneyValue)
 	{
-		score -= newMoneyValue;
+
+        score -= newMoneyValue;
+        treasureCount -= newMoneyValue;
 
 		UpdateMoney();
 	}
