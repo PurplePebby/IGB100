@@ -15,7 +15,7 @@ public class Cutscene : MonoBehaviour
 
 	public void CutsceneForward()
 	{
-		Debug.Log(currentCutSceneIndex);		
+		//Debug.Log(currentCutSceneIndex);		
 		if (currentCutSceneIndex < cutsceneImages.Count - 1)
 		{
 			cutsceneImages[currentCutSceneIndex].SetActive(false);

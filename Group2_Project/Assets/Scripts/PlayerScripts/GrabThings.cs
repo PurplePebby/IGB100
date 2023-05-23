@@ -13,6 +13,7 @@ public class GrabThings : MonoBehaviour
     CinemachineVirtualCamera currentCamera;
     [SerializeField]
     CinemachineVirtualCamera newCamera;
+    private RaycastHit hit;
 
     // Reference to the character camera.
     [SerializeField]
@@ -73,7 +74,7 @@ public class GrabThings : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
         item.transform.localEulerAngles = Vector3.zero;
         treasureCount =+1;
-        Debug.Log("treasure count: " + treasureCount);
+        //Debug.Log("treasure count: " + treasureCount);
         
     }
 
@@ -104,11 +105,11 @@ public class GrabThings : MonoBehaviour
         // If no, try to pick item in front of the player
         // Create ray from center of the screen
         var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
-        RaycastHit hit;
         // Shot ray to find object to pick
         if (Physics.Raycast(ray, out hit, 5f)) {
             // If object has PickableItem class
             var interactable = hit.transform.GetComponent<InteractableThing>();
+            Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
             if (interactable.tag == "O2Tank" && interactable) {
                 StartCoroutine(GameManager.instance.ShowIfInteract("refill oxygen"));
             }
@@ -121,9 +122,6 @@ public class GrabThings : MonoBehaviour
                 StartCoroutine(GameManager.instance.ShowIfInteract("use the pirate cannon"));
             }
 
-            if (interactable == null) {
-                StartCoroutine(GameManager.instance.HideIfNoInteract());
-            }
             if (hit.transform.GameObject().tag == "TreasureDropOff" && Input.GetKey("e")) {
                 //Dropoff Treasure
                 for (int i = 0; i < 1; i++) {
@@ -149,13 +147,16 @@ public class GrabThings : MonoBehaviour
 
 			}
         }
+        else {
+            StartCoroutine(GameManager.instance.HideIfNoInteract());
+        }
     }
 
     private void CastRays() {
         // If no, try to pick item in front of the player
         // Create ray from center of the screen
         var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
-        RaycastHit hit;
+        //RaycastHit hit;
         // Shot ray to find object to pick
         if (Physics.Raycast(ray, out hit, 4f)) {
             // Check if object is pickable
@@ -165,9 +166,6 @@ public class GrabThings : MonoBehaviour
                 
                 StartCoroutine(GameManager.instance.ShowIfInteract("pick up treasure"));
             }
-            else {
-                StartCoroutine(GameManager.instance.HideIfNoInteract());
-            }
 
             // If object has PickableItem class
             if (Input.GetKey("e") && pickable && treasureCount <3) {
@@ -176,10 +174,13 @@ public class GrabThings : MonoBehaviour
                 PickItem(pickable);
 
             }
-            else if (treasureCount == 3) {
+            else if (treasureCount >= 3) {
                 DropItem(pickable);
             }
             //GameManager.instance.ShowE(false);
+        }
+        else {
+            StartCoroutine(GameManager.instance.HideIfNoInteract());
         }
     }
     public void AddScore() {

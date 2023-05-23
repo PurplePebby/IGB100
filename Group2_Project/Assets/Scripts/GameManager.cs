@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour {
 		//Counts how much treasure has spawned into the scene
 		//then prints it out to the debug
 		treasureCount += newMoneyValue;
-		Debug.Log("Amount of treasure in scene is " + treasureCount);
+		//Debug.Log("Amount of treasure in scene is " + treasureCount);
 	}
 
 	public void RemoveMoney(int newMoneyValue)

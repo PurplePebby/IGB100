@@ -27,7 +27,8 @@ public class MoveSharkie : MonoBehaviour
 
     private Quaternion _lookRotation;
     private Vector3 _direction;
-
+    [SerializeField]
+    private float turnSpeed;
     [SerializeField]
     private GameObject waterLvl;
     public void Start() {
@@ -80,7 +81,8 @@ public class MoveSharkie : MonoBehaviour
 
     private void FishySwimPath() {
         //enemy pathing https://www.youtube.com/watch?v=BGe5HDsyhkY
-        ; if (transform.position != points[current].position) {
+        ; if (transform.position != points[current].position) {            
+            transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
             //find the vector pointing from our position to the target
             _direction = (points[current].position - transform.position).normalized;
 
@@ -88,8 +90,7 @@ public class MoveSharkie : MonoBehaviour
             _lookRotation = Quaternion.LookRotation(_direction);
 
             //rotate us over time according to speed until we are in the required rotation
-            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * 0.2f);
-            transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * turnSpeed);
         }
         else {
             current = (current + 1) % points.Length;

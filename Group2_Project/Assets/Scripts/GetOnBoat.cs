@@ -20,7 +20,7 @@ public class GetOnBoat : MonoBehaviour
 
             //if button, then player is tp onto boat
             if (Input.GetKey("e")) {
-                Debug.Log("Button press");
+                //Debug.Log("Button press");
 
                 cc.enabled = false;
                 player.transform.position = pos.transform.position;
