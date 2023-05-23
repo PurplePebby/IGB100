@@ -458,10 +458,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f450d71c21aa4244499f7196ea060624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treasureCount: 0
   healthBarSlider: {fileID: 85378210}
   oxygenBarSlider: {fileID: 1496345631}
+  moneyBarSlider: {fileID: 0}
   pauseMenu: {fileID: 1835760311}
   gameOverScreen: {fileID: 1698140163}
+  victoryCutscene: {fileID: 0}
+  pirateCutscene: {fileID: 0}
+  pirateEnding: {fileID: 0}
+  grandmaEnding: {fileID: 0}
+  Panels: {fileID: 0}
 --- !u!114 &34965083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +490,6 @@ MonoBehaviour:
   - {fileID: 1693701278}
   treasures:
   - {fileID: 7558806670797759569, guid: 37ba178fee2ed574eb08e7f4b07ecd11, type: 3}
-  instantiateRate: 30
 --- !u!114 &34965084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11047,9 +11053,11 @@ MonoBehaviour:
   points:
   - {fileID: 1232051061}
   speed: 5
-  damage: 1
+  rotation: {x: 0, y: 0, z: 0}
   CircleRadius: 14
   ElevationOffset: 0
+  turnSpeed: 0
+  waterLvl: {fileID: 0}
 --- !u!135 &1307881073
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12908,8 +12916,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d7fcb3abeae7e41a71c72879b58f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCamera: {fileID: 0}
+  newCamera: {fileID: 0}
   characterCamera: {fileID: 2008634772}
-  slot: {fileID: 2111961992}
+  slot:
+  - {fileID: 0}
+  cannonPos: {fileID: 0}
 --- !u!114 &1495038505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13107,17 +13119,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01eb71350e7fc140aec8e95742090e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 4
   SprintSpeed: 6
+  SpeedChangeRate: 0.4
+  RotationSpeed: 1
   SwimSpeed: 8
   VerticalSwimSpeed: 6
   StrafeSwimSpeed: 4
-  RotationSpeed: 1
-  SpeedChangeRate: 0.4
+  floatyness: 10
+  sinkGravity: -3
+  maxSinkRate: 7.5
   JumpHeight: 1.5
   Gravity: -9.81
   _terminalVelocity: 3
   JumpTimeout: 1
   FallTimeout: 1.5
+  underWater: 0
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.5
@@ -13170,8 +13187,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   maxOxygen: 20
+  maxMoney: 0
   drownDPS: 1
+  oxygenDepletionDelay: 2
   breathSpeed: 5
+  refillAboveWater: 0
   waterLevelPoint: {fileID: 1791974026}
 --- !u!1 &1496345629
 GameObject:
@@ -17297,44 +17317,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
   m_PrefabInstance: {fileID: 2008634771}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2008634773 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9005220659476430823, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
-  m_PrefabInstance: {fileID: 2008634771}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2008634774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008634773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!1001 &2019268550
 PrefabInstance:
   m_ObjectHideFlags: 0
