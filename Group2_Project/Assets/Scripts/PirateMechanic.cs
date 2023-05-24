@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class PirateMechanic : MonoBehaviour {
 
     public GameObject pirateShip;
@@ -9,14 +11,13 @@ public class PirateMechanic : MonoBehaviour {
 
 
 
-    [Tooltip("Seconds until the pirates attack")]
-    public float timeUntilRaid = 20;
+    [Tooltip("Seconds between pirates attacks")]
+    public float timeBetweenRaids = 20;
     public float instantiateRate;
     public bool pirateSpawn = false;
 
+    public Slider pirateSlider;
 
-
-    
     [Tooltip("DONT CHANGE THIS, JUST WATCH IT")]
     private float treasureCount => GameManager.instance.moneyBarSlider.value;
 
@@ -27,6 +28,7 @@ public class PirateMechanic : MonoBehaviour {
 
 
     private void Start() {
+        pirateSlider.maxValue = timeBetweenRaids;
     }
 
     void Update() {
@@ -45,12 +47,13 @@ public class PirateMechanic : MonoBehaviour {
 
 
     public IEnumerator StartPirateTimer() {
-        if (timeUntilRaid > 0) {
-            timeUntilRaid -= Time.deltaTime;
-            Debug.Log("TIme until raid " + timeUntilRaid);
+        if (pirateSlider.value >= timeBetweenRaids) {
+			pirateSlider.value += Time.deltaTime;
+            Debug.Log("Time until raid " + pirateSlider.value);
+            pirateSlider.value = pirateSlider.value;
         }
         else {
-            timeUntilRaid = 0;
+			pirateSlider.value = 0;
             Debug.Log("Spawnned Ship");
             Instantiate(pirateShip, spawnPos.position, spawnPos.rotation);
             pirateSpawn = true;
@@ -59,9 +62,9 @@ public class PirateMechanic : MonoBehaviour {
     }
 
     private void InstantiateCubeTimer() {
-        if (Time.time > timeUntilRaid) {
+        if (Time.time > pirateSlider.value) {
             Instantiate(pirateShip, spawnPos.position, spawnPos.rotation);
-            timeUntilRaid = Time.time + instantiateRate;
+			pirateSlider.value = Time.time + instantiateRate;
         }
     }
     

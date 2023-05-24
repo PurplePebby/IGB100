@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour {
         get { return paused; }
     }
 
+	[NonSerialized] public bool onCannon = false;
+
 	void Awake() {
         if (instance == null) {
             instance = this;

@@ -33,6 +33,7 @@ public class AntiPirateCannon : MonoBehaviour
 
 				Cursor.visible = false;
 				Cursor.lockState = CursorLockMode.Confined;
+                GameManager.instance.onCannon = false;
 
 			}
         }

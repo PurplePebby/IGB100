@@ -202,11 +202,11 @@ namespace StarterAssets
 			{
 				velocityVector.y += (VerticalSwimSpeed - sinkGravity) * Time.deltaTime;
 			}
-			else if (_input.move != Vector2.zero)
+			if (_input.move != Vector2.zero)
 			{
 				// move
 				velocityVector.x = CinemachineCameraTarget.transform.forward.x * SwimSpeed * _input.move.y + transform.right.x * StrafeSwimSpeed * _input.move.x;
-				velocityVector.y = CinemachineCameraTarget.transform.forward.y * VerticalSwimSpeed * _input.move.y;
+				velocityVector.y = CinemachineCameraTarget.transform.forward.y * SwimSpeed * _input.move.y;
 				velocityVector.z = CinemachineCameraTarget.transform.forward.z * SwimSpeed * _input.move.y + transform.right.z * StrafeSwimSpeed * _input.move.x;
 
 			}
