@@ -1495,7 +1495,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1509,7 +1509,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 55071819}
   m_FillRect: {fileID: 1995556266}
   m_HandleRect: {fileID: 55071817}
@@ -12337,7 +12337,7 @@ GameObject:
   - component: {fileID: 1130300297}
   - component: {fileID: 1130300298}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Pirate Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12391,7 +12391,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -12405,7 +12405,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1311557703}
   m_FillRect: {fileID: 1179623238}
   m_HandleRect: {fileID: 1311557702}
@@ -12413,7 +12413,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15239,6 +15239,10 @@ PrefabInstance:
       propertyPath: pirateHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 732457884, guid: 8b5dc30781042f645a5ef5944e3fc586, type: 3}
+      propertyPath: pirateSlider
+      value: 
+      objectReference: {fileID: 1130300298}
     - target: {fileID: 732457889, guid: 8b5dc30781042f645a5ef5944e3fc586, type: 3}
       propertyPath: speed
       value: 5
@@ -22444,10 +22448,11 @@ MonoBehaviour:
   pirateShip: {fileID: 3515438638716026290, guid: 736c3cd524736e749b68e0072eb3c588, type: 3}
   spawnPos: {fileID: 397311860}
   pirateShip_inScene: {fileID: 0}
-  timeUntilRaid: 2
+  timeBetweenRaids: 20
   instantiateRate: 0
   pirateSpawn: 0
-  minAmt: 4
+  pirateSlider: {fileID: 1130300298}
+  minAmt: 0
 --- !u!4 &1990853927
 Transform:
   m_ObjectHideFlags: 0

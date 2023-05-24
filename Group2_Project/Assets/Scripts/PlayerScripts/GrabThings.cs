@@ -144,7 +144,7 @@ public class GrabThings : MonoBehaviour
                 currentCamera.gameObject.SetActive(false);
 				Cursor.visible = false;
 				Cursor.lockState = CursorLockMode.Confined;
-
+                GameManager.instance.onCannon = true;
 			}
         }
         else {

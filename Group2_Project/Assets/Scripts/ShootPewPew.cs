@@ -20,7 +20,7 @@ public class ShootPewPew : MonoBehaviour
 
     private void InstantiateProjectile() {
 
-        if (Input.GetKeyDown("space") && Time.time > fireTime) {
+        if (Input.GetButtonDown("Fire1") && Time.time > fireTime && GameManager.instance.onCannon) {
             Instantiate(obj, spawnPosition.position, spawnPosition.rotation);
             fireTime = Time.time + fireRate;
         }
