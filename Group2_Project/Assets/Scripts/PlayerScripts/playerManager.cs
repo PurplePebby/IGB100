@@ -20,10 +20,10 @@ public class playerManager : MonoBehaviour
 	[SerializeField]
 	[Tooltip("The speed that the player regains their breath. Measured in seconds of oxygen per second.")] private float breathSpeed;
 	[SerializeField]
+	[Tooltip("How high above the water the player needs to be in order to breath.")] private float breathHeightOffset;
+	[SerializeField]
 	[Tooltip("Does the player gain oxygen when above water.")] private bool refillAboveWater = false;
 
-	[SerializeField]
-	[Tooltip("The point that marks the top of the water.")] private GameObject waterLevelPoint;
 
 	private PlayerMovementController playerMove;
 	private bool canDrown = false;
@@ -53,7 +53,7 @@ public class playerManager : MonoBehaviour
 
 	private void UnderWaterCheck()
 	{
-		if (transform.position.y < waterLevelPoint.transform.position.y - 0.5f)
+		if (transform.position.y < GameManager.instance.waterLevel + breathHeightOffset)
 		{
 			if (canDrown)
 			{
@@ -72,7 +72,7 @@ public class playerManager : MonoBehaviour
 				GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
 			}
 		}
-		if (transform.position.y < waterLevelPoint.transform.position.y)
+		if (transform.position.y < GameManager.instance.waterLevel - 1f)
 		{
 			playerMove.underWater = true;
 		}

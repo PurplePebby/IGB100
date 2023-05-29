@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour {
     CinemachineBrain myBrain; 
     CinemachineVirtualCamera startCam;
 
+	[SerializeField] private GameObject waterLevelMarker;
+	[HideInInspector] public float waterLevel;
+
     [SerializeField]
 	[Tooltip("The UI slider used to show health.")] private Slider healthBarSlider;
 
@@ -31,7 +34,13 @@ public class GameManager : MonoBehaviour {
     [Tooltip("The UI slider used pirates attacks")] public Slider pirateSlider;
 	public bool pirateShip;
 
+<<<<<<< Updated upstream
     [SerializeField]
+=======
+
+	[Header("Menus and cutscenes")]
+	[SerializeField]
+>>>>>>> Stashed changes
 	private GameObject pauseMenu;
 	[SerializeField]
 	private GameObject gameOverScreen;
@@ -73,6 +82,7 @@ public class GameManager : MonoBehaviour {
         
         
         scoreText = scoreParent.GetComponent<Text>();
+		waterLevel = waterLevelMarker.transform.position.y;
 
         UpdateMoney();
 

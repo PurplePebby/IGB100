@@ -141,6 +141,7 @@ namespace StarterAssets
 		{
 			if (!GameManager.instance.Paused)
 			{
+				Debug.Log(_verticalVelocity);
 				if (underWater)
 				{
 					Sink();
