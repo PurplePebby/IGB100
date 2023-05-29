@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 using Random = UnityEngine.Random;
 
 public class SpawnThings : MonoBehaviour
@@ -32,7 +33,7 @@ public class SpawnThings : MonoBehaviour
 
     //randomly select a treasure to spawn
     private int SelectTreasure() {
-        int selected = 0;//Random.Range(0, treasures.Count);
+        int selected = Random.Range(0, treasures.Count);
         return selected;
     }
 
@@ -61,6 +62,8 @@ public class SpawnThings : MonoBehaviour
             int a = SelectTreasure();
             int b = SelectLocation();
             if (Spawnned.Contains(b) == false || Spawnned == null) {
+                treasures[a].transform.localPosition = Vector3.zero;
+                treasures[a].transform.localEulerAngles = Vector3.zero;
                 Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
                 //Debug.Log("Spawn Location is: " + spawnLocations[b]);
                 GameManager.instance.AddTreasureCount(1);
