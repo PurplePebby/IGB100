@@ -19,7 +19,7 @@ public class MelleAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !GameManager.instance.Paused)
         {
             animator.SetBool("Attacking", true);
             spearCollider.enabled = true;

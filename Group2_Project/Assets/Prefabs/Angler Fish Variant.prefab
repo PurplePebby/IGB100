@@ -150,7 +150,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 399780002802418121, guid: 8806fa97be8808844bfbf9434f4dc1ca, type: 3}
       propertyPath: m_Name
-      value: Angler Fish
+      value: Angler Fish Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1064992905923894131, guid: 8806fa97be8808844bfbf9434f4dc1ca, type: 3}
       propertyPath: m_RootOrder
@@ -226,7 +226,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 61.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &1716217624
 SphereCollider:
@@ -253,19 +253,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a9e2aa4b1870e4abedeefd4031ab66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  points: {fileID: 0}
   speed: 5
   rotation: {x: 0, y: 0, z: 0}
   CircleRadius: 14
   ElevationOffset: 0
   turnSpeed: 2
-  waterLvl: {fileID: 0}
 --- !u!114 &1716217622
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -209,7 +209,6 @@ namespace StarterAssets
 				velocityVector.x = CinemachineCameraTarget.transform.forward.x * SwimSpeed * _input.move.y + transform.right.x * StrafeSwimSpeed * _input.move.x;
 				velocityVector.y = CinemachineCameraTarget.transform.forward.y * SwimSpeed * _input.move.y;
 				velocityVector.z = CinemachineCameraTarget.transform.forward.z * SwimSpeed * _input.move.y + transform.right.z * StrafeSwimSpeed * _input.move.x;
-
 			}
 
 			//Slow player

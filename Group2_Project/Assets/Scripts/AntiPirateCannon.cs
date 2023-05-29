@@ -19,12 +19,13 @@ public class AntiPirateCannon : MonoBehaviour
 
     void Update() {
         
-        if (myBrain.ActiveVirtualCamera == currentCamera){
+        if (myBrain.ActiveVirtualCamera == currentCamera && !GameManager.instance.Paused){
             //Debug.Log("Active");
             //run cannon
             FollowMouse();
-
-            if (Input.GetKey("q")) {
+			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Confined;
+			if (Input.GetKey("q")) {
                 CharacterController cc = player.GetComponent<CharacterController>();
                 this.transform.localRotation = Quaternion.Euler(Vector3.zero); 
                 cc.enabled = true;

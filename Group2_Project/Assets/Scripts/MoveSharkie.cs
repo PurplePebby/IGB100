@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
 public class MoveSharkie : MonoBehaviour
 {
     //create empty game objects & place them around the scene as the path for the fish to take
-    public Transform[] points;
+    public GameObject points;
+    private Transform[] pointsArray;
     int current;
     public float speed = 5f;
 
@@ -32,8 +34,14 @@ public class MoveSharkie : MonoBehaviour
     [SerializeField]
     private GameObject waterLvl;
     public void Start() {
+        List<Transform> pointsList = new List<Transform> ();
         current = 0;
-    }
+		foreach (Transform child in points.transform)
+		{
+			pointsList.Add(child.transform);
+		}
+        pointsArray = pointsList.ToArray ();
+	}
 
     void Update() {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
@@ -81,10 +89,10 @@ public class MoveSharkie : MonoBehaviour
 
     private void FishySwimPath() {
         //enemy pathing https://www.youtube.com/watch?v=BGe5HDsyhkY
-        ; if (transform.position != points[current].position) {            
-            transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
+        ; if (transform.position != pointsArray[current].position) {            
+            transform.position = Vector3.MoveTowards(transform.position, pointsArray[current].position, speed * Time.deltaTime);
             //find the vector pointing from our position to the target
-            _direction = (points[current].position - transform.position).normalized;
+            _direction = (pointsArray[current].position - transform.position).normalized;
 
             //create the rotation we need to be in to look at the target
             _lookRotation = Quaternion.LookRotation(_direction);
@@ -93,7 +101,7 @@ public class MoveSharkie : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * turnSpeed);
         }
         else {
-            current = (current + 1) % points.Length;
+            current = (current + 1) % pointsArray.Length;
         }
         
     }
@@ -103,8 +111,8 @@ public class MoveSharkie : MonoBehaviour
         positionOffset.Set(Mathf.Cos(angle) * CircleRadius, ElevationOffset, 
             Mathf.Sin(angle) * CircleRadius);
         //make the side vector point at it, so fishie always facing 'forwards'
-        LookAtThing(points[current], 0);
-        currentPosition = points[current].position + positionOffset;
+        LookAtThing(pointsArray[current], 0);
+        currentPosition = pointsArray[current].position + positionOffset;
         transform.position = currentPosition;
         angle += Time.deltaTime/2;
         yield return null;
