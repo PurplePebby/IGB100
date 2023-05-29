@@ -63,7 +63,7 @@ public class SpawnThings : MonoBehaviour
             if (Spawnned.Contains(b) == false || Spawnned == null) {
                 Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
                 //Debug.Log("Spawn Location is: " + spawnLocations[b]);
-                GameManager.instance.AddMoney(1);
+                GameManager.instance.AddTreasureCount(1);
                 Spawnned.Add(b);
             }
         }      

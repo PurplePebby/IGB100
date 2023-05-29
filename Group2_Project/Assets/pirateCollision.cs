@@ -15,6 +15,7 @@ public class pirateCollision : MonoBehaviour
             if (pirateHealth <= 0) {
                 //kill boat
                 Destroy(this.gameObject);
+                GameManager.instance.pirateShip = false;
             }
             else {
                 pirateHealth = pirateHealth - Dmg;

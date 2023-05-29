@@ -14,29 +14,43 @@ public class pirateMovement : MonoBehaviour
     private BoxCollider shipBox;
     public int treasureStealAmt;
 
+    private bool alive;
+
     // Start is called before the first frame update
     void Start()
     {
+        alive = true;
         playerBoat = GameObject.Find("Scout_Boat");
+        shipBox = this.GetComponentInChildren<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveToShip();
-        stealTreasure();
+        Debug.Log(alive);
+        if (alive == true){
+            MoveToShip();
+            //replace with collision
+            StartCoroutine(stealTreasure());
+        }
     }
 
-    private void stealTreasure() {
-        if (transform.position.z-8 < playerBoat.transform.position.z || transform.position.z < playerBoat.transform.position.z+8) {
-            Debug.Log("In Z range");
-            if (transform.position.x - 15 < playerBoat.transform.position.x || transform.position.x < playerBoat.transform.position.x + 15){
-                Debug.Log("In X range");
-                GameManager.instance.RemoveMoney(treasureStealAmt); 
-                Destroy(gameObject, 2f);
-            }   
+    private IEnumerator stealTreasure() {
+        if(shipBox != null){
+            if (shipBox.bounds.Intersects(playerBoat.GetComponent<Collider>().bounds)){
+                //Debug.Log("COLLISION");
+                GameManager.instance.AddMoney(-(treasureStealAmt));
                 
-        } 
+                Destroy(gameObject);
+                GameManager.instance.pirateShip = false;           
+                yield return null;
+            }        
+            
+        }
+        else {
+            alive = false;
+        }
+        yield return null;
     }
 
     private void MoveToShip() {

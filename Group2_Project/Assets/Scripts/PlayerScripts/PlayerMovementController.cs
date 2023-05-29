@@ -143,6 +143,7 @@ namespace StarterAssets
 			{
 				if (underWater)
 				{
+					_verticalVelocity = GroundedOffset;
 					Sink();
 					GroundedCheck();
 					Swim();

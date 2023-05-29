@@ -458,8 +458,8 @@ MonoBehaviour:
   drownDPS: 1
   oxygenDepletionDelay: 2
   breathSpeed: 5
+  breathHeightOffset: -1.8
   refillAboveWater: 0
-  waterLevelPoint: {fileID: 0}
 --- !u!1 &8593183914937711103
 GameObject:
   m_ObjectHideFlags: 0
