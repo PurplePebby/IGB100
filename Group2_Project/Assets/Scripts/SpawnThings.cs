@@ -39,7 +39,7 @@ public class SpawnThings : MonoBehaviour
 
     //randomly select a treasure to spawn
     private int SelectTreasure() {
-        int selected = 0;//Random.Range(0, treasures.Count);
+        int selected = Random.Range(0, treasures.Count);
         return selected;
     }
 

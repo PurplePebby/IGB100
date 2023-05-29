@@ -31,8 +31,6 @@ public class MoveSharkie : MonoBehaviour
     private Vector3 _direction;
     [SerializeField]
     private float turnSpeed;
-    [SerializeField]
-    private GameObject waterLvl;
     public void Start() {
         List<Transform> pointsList = new List<Transform> ();
         current = 0;
@@ -45,12 +43,12 @@ public class MoveSharkie : MonoBehaviour
 
     void Update() {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
-        if (transform.position.y < waterLvl.transform.position.y || PlayerPosition == null) {
-            FishySwimPath();    
+        if (transform.position.y < GameManager.instance.waterLevel && PlayerPosition != null) {
+			StartCoroutine(FollowPlayer()); 
         }
         else {
-                StartCoroutine(FollowPlayer()); 
-        }
+			FishySwimPath();
+		}
      
     }
 
