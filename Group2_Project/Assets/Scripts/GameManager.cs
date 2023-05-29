@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -27,8 +28,10 @@ public class GameManager : MonoBehaviour {
 	[Tooltip("The UI slider used to show oxygen.")] private Slider oxygenBarSlider;
 
     [Tooltip("The UI slider used to show money.")] public Slider moneyBarSlider;
+    [Tooltip("The UI slider used pirates attacks")] public Slider pirateSlider;
+	public bool pirateShip;
 
-	[SerializeField]
+    [SerializeField]
 	private GameObject pauseMenu;
 	[SerializeField]
 	private GameObject gameOverScreen;
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	private GameObject grandmaEnding;
 	[SerializeField]
-	private GameObject Panels;
+	private GameObject[] Panels;
 
 	[NonSerialized] public float drownDPS;
 
@@ -156,35 +159,41 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void AddScore(int newScoreValue)
+	public void AddMoney(int newScoreValue)
 	{
 		score += newScoreValue;
 
 		UpdateMoney();
 	}
 
-	public void AddMoney(int newMoneyValue)
+	public void AddTreasureCount(int newTreasureValue)
 	{
 		//Counts how much treasure has spawned into the scene
 		//then prints it out to the debug
-		treasureCount += newMoneyValue;
+		treasureCount += newTreasureValue;
 		//Debug.Log("Amount of treasure in scene is " + treasureCount);
 	}
 
-	public void RemoveMoney(int newMoneyValue)
-	{
+    #endregion
 
-        score -= newMoneyValue;
-        treasureCount -= newMoneyValue;
+    #region PirateSlider
+    public void SetMaxTime(float time) {
+        pirateSlider.maxValue = time;
+    }
 
-		UpdateMoney();
-	}
+    private void UpdatePirateTime(float score) {
+        pirateSlider.value = pirateSlider.value + score;
+    }
 
-	#endregion
+    public void addPirateTime(float newScoreValue) {
+        UpdatePirateTime(newScoreValue);
+    }
 
-	#region cutscenes and menus
+    #endregion
 
-	public void PlayPirateEnding()
+    #region cutscenes and menus
+
+    public void PlayPirateEnding()
 	{
 		pirateEnding.SetActive(true);
 	}
@@ -236,34 +245,44 @@ public class GameManager : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
-	#endregion
+    #endregion
 
 
-	//GLOBAL COROUTINES
+    #region Prompts
 
-	public void ShowE(bool state) {
+    public void ShowE(bool state) {
         //attach a canvas
         //display text
-        Panels.SetActive(state);
+        Panels[0].SetActive(state);
       //  StartCoroutine(turnOffE());
         //yield return null;
     }
 
     public IEnumerator ShowIfInteract(string a) {
-        Panels.SetActive(true);
+        Panels[0].SetActive(true);
         //Debug.Log(collectText);
         collectParent = GameObject.Find("InteractText");
         collectText = collectParent.GetComponent<Text>();
         collectText.text = "Press 'E' to " + a;
         yield return null;
         //   yield return null;
-    }    
-    
+    }
     public IEnumerator HideIfNoInteract() {
-        Panels.SetActive(false);
+
+        Panels[0].SetActive(false);
         yield return null;
         //   yield return null;
     }
+    public IEnumerator ShowPrompt(string a) {
+        Panels[1].SetActive(true);
+        //Debug.Log(collectText);
+        collectParent = GameObject.Find("InteractText");
+        collectText = collectParent.GetComponent<Text>();
+        collectText.text = "" + a;
+        yield return new WaitForSeconds(1.5f);
+        Panels[1].SetActive(false);
+        //   yield return null;
+    }
 
-
+    #endregion
 }

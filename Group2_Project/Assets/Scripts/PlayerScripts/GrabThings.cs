@@ -109,7 +109,7 @@ public class GrabThings : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 5f)) {
             // If object has PickableItem class
             var interactable = hit.transform.GetComponent<InteractableThing>();
-            Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
+            //Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
             if (interactable.tag == "O2Tank" && interactable) {
                 StartCoroutine(GameManager.instance.ShowIfInteract("refill oxygen"));
             }
@@ -188,8 +188,8 @@ public class GrabThings : MonoBehaviour
             if (slot[i].transform.childCount == 1) {               
                 //Debug.Log("Score Added");
                 Destroy(slot[i].transform.GetChild(0).gameObject);
-                GameManager.instance.AddMoney(-1);
-                GameManager.instance.AddScore(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
+                GameManager.instance.AddTreasureCount(-1);
+                GameManager.instance.AddMoney(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
             }
         }
         treasureCount =- treasureCount;

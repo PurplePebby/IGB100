@@ -49,6 +49,7 @@ MonoBehaviour:
   pirateSpeed: 8
   waterLevelPoint: {x: 0, y: 0, z: 0}
   shipBox: {fileID: 0}
+  treasureStealAmt: 3
 --- !u!1001 &6091474922928278243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,7 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pirateHealth: 15
   Dmg: 5
-  treasureStealAmt: 0
 --- !u!4 &8773823162348430531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3263884346322873888, guid: c5ff5353a7092374eadf048f153b861b, type: 3}
