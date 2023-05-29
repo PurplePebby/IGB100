@@ -13,7 +13,6 @@ TagManager:
   - CannonButton
   - Spear
   - Pew
-  - Treasure
   layers:
   - Default
   - TransparentFX

@@ -40,10 +40,9 @@ public class GrabThings : MonoBehaviour
     /// </summary>
     private void Update() {
 
-        
-        DetectBoatItem();
         CastRays();
-
+        DetectBoatItem();
+        
     }
 
     private void Start() {
@@ -122,6 +121,7 @@ public class GrabThings : MonoBehaviour
 
                 StartCoroutine(GameManager.instance.ShowIfInteract("use the pirate cannon"));
             }
+
             if (hit.transform.GameObject().tag == "TreasureDropOff" && Input.GetKey("e")) {
                 //Dropoff Treasure
                 for (int i = 0; i < 1; i++) {
@@ -162,7 +162,7 @@ public class GrabThings : MonoBehaviour
             // Check if object is pickable
             var pickable = hit.transform.GetComponent<CollectibleThing>();
             var interactable = hit.transform.GetComponent<InteractableThing>();
-            if (interactable.tag == "Treasure") {
+            if (interactable) {
                 
                 StartCoroutine(GameManager.instance.ShowIfInteract("pick up treasure"));
             }

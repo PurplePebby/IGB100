@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour {
     public int treasureCount = 0;
     private Text scoreText;
     private Text collectText;
-	
-	public AudioManager aM;
 
     CinemachineBrain myBrain; 
     CinemachineVirtualCamera startCam;
@@ -73,9 +71,8 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-		//startCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
-		aM.addAudioSource(this.gameObject);
-		aM.playAmbientMusic(this.GetComponent<AudioSource>(), aM.underwaterSounds);
+        //startCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
+        
         scoreParent = GameObject.Find("Score Text");
         scoreText = scoreParent.GetComponent<Text>(); 
         
