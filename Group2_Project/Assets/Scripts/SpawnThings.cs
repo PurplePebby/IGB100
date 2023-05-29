@@ -62,10 +62,15 @@ public class SpawnThings : MonoBehaviour
             int a = SelectTreasure();
             int b = SelectLocation();
             if (Spawnned.Contains(b) == false || Spawnned == null) {
+<<<<<<< Updated upstream
                 treasures[a].transform.localPosition = Vector3.zero;
                 treasures[a].transform.localEulerAngles = Vector3.zero;
                 Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
                 //Debug.Log("Spawn Location is: " + spawnLocations[b]);
+=======
+                GameObject newTreasure = Instantiate(treasures[a], spawnLocations[b].transform.position, spawnLocations[b].transform.rotation);
+                Debug.Log($"The treasure is at {newTreasure.transform.position} it should be at {spawnLocations[b].transform.position}");
+>>>>>>> Stashed changes
                 GameManager.instance.AddTreasureCount(1);
                 Spawnned.Add(b);
             }
