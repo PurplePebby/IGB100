@@ -19493,6 +19493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treasureCount: 0
+  waterLevelMarker: {fileID: 1572173847}
+  waterLevel: 0
   healthBarSlider: {fileID: 1942406047}
   oxygenBarSlider: {fileID: 1915713348}
   moneyBarSlider: {fileID: 2009349863}
@@ -23232,6 +23234,10 @@ PrefabInstance:
       propertyPath: waterLevelPoint
       value: 
       objectReference: {fileID: 1572173847}
+    - target: {fileID: 8593183914550802979, guid: 0418eb84fc4a2b5438f86abe5e3b3148, type: 3}
+      propertyPath: breathHeightOffset
+      value: -1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8593183914550802998, guid: 0418eb84fc4a2b5438f86abe5e3b3148, type: 3}
       propertyPath: m_Name
       value: Player
