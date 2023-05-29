@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -143,10 +144,13 @@ namespace StarterAssets
 			{
 				if (underWater)
 				{
-					_verticalVelocity = GroundedOffset;
-					Sink();
+					_verticalVelocity = 0;
+					
 					GroundedCheck();
 					Swim();
+					Sink();
+					// move the player
+					_controller.Move(Vector3.Lerp(_controller.velocity, velocityVector, floatyness * Time.deltaTime) * Time.deltaTime);
 				}
 				else
 				{
@@ -198,25 +202,28 @@ namespace StarterAssets
 
 		private void Swim()
 		{
-			
-			if (Input.GetKey("space"))
-			{
-				velocityVector.y += (VerticalSwimSpeed - sinkGravity) * Time.deltaTime;
-			}
+			//velocityVector.y = 0;
+
+
 			if (_input.move != Vector2.zero)
 			{
 				// move
 				velocityVector.x = CinemachineCameraTarget.transform.forward.x * SwimSpeed * _input.move.y + transform.right.x * StrafeSwimSpeed * _input.move.x;
-				velocityVector.y = CinemachineCameraTarget.transform.forward.y * SwimSpeed * _input.move.y;
+				velocityVector.y = CinemachineCameraTarget.transform.forward.y * SwimSpeed * _input.move.y + (Convert.ToInt32(Input.GetKey("space")) * (VerticalSwimSpeed));
 				velocityVector.z = CinemachineCameraTarget.transform.forward.z * SwimSpeed * _input.move.y + transform.right.z * StrafeSwimSpeed * _input.move.x;
-
+				Debug.Log("Moving.");
+			}
+			else if (Input.GetKey("space"))
+			{
+				velocityVector.y = VerticalSwimSpeed;
+				Debug.Log("Going up.");
 			}
 
+			Debug.Log(velocityVector.y);
 			//Slow player
 			velocityVector = Vector3.Lerp(velocityVector, Vector3.zero, floatyness * Time.deltaTime);
 			
-			// move the player
-			_controller.Move(Vector3.Lerp(_controller.velocity, velocityVector, floatyness * Time.deltaTime) * Time.deltaTime);			
+						
 		}
 
 		private void Sink()

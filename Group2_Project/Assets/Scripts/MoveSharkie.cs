@@ -30,18 +30,18 @@ public class MoveSharkie : MonoBehaviour
     [SerializeField]
     private float turnSpeed;
     [SerializeField]
-    private GameObject waterLvl;
+    private float waterLvl => GameManager.instance.waterLevel;
     public void Start() {
         current = 0;
     }
 
     void Update() {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
-        if (transform.position.y < waterLvl.transform.position.y || PlayerPosition == null) {
-            FishySwimPath();    
+        if (transform.position.y < waterLvl && PlayerPosition != null) {
+            StartCoroutine(FollowPlayer());            
         }
         else {
-                StartCoroutine(FollowPlayer()); 
+            FishySwimPath();
         }
      
     }
