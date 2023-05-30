@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour {
         
         scoreText = scoreParent.GetComponent<Text>();
 		waterLevel = waterLevelMarker.transform.position.y;
+		Debug.Log("The surface is at " + waterLevel);
 
         UpdateMoney();
 

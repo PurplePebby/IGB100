@@ -75,6 +75,7 @@ public class playerManager : MonoBehaviour
 		if (transform.position.y < GameManager.instance.waterLevel - 1f)
 		{
 			playerMove.underWater = true;
+
 		}
 		else
 		{
