@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     private Text scoreText;
     private Text collectText;
 
+    public AudioManager aM;
+
     CinemachineBrain myBrain; 
     CinemachineVirtualCamera startCam;
 

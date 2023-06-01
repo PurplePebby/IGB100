@@ -71,7 +71,13 @@ public class GrabThings : MonoBehaviour
 
 
         // Reset position and rotation
-        item.transform.localPosition = Vector3.zero;
+        if (item.gameObject.name == "cup") {
+            item.transform.localPosition = new Vector3(0, 0.37f, 0);
+        }
+        else {
+            item.transform.localPosition = Vector3.zero;
+        }
+        
         item.transform.localEulerAngles = Vector3.zero;
         treasureCount =+1;
         //Debug.Log("treasure count: " + treasureCount);
