@@ -57,11 +57,23 @@ public class MoveSharkie : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
         if (other.tag == "Player") PlayerPosition = other.transform;
+        ///SOUND
+        ///
+        //sound for chasing player
+        //SoundManager.instance.PlayMusic(SoundManager.instance.NAME_OF_FIELD);
+        ///
+        ///SOUND
     }
 
     void OnTriggerExit(Collider other) {
         //from https://answers.unity.com/questions/669598/detect-if-player-is-in-range-1.html
         if (other.tag == "Player") PlayerPosition = null;
+        ///SOUND
+        ///
+        //switch sound back to environment
+        //SoundManager.instance.PlayMusic(SoundManager.instance.NAME_OF_FIELD);
+        ///
+        ///SOUND
     }
 
     IEnumerator FollowPlayer() {

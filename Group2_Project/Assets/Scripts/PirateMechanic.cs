@@ -57,18 +57,18 @@ public class PirateMechanic : MonoBehaviour {
             GameManager.instance.pirateSlider.value = 0;
             StartCoroutine(GameManager.instance.ShowPrompt("The pirates are here!"));
             Instantiate(pirateShip, spawnPos.position, spawnPos.rotation);
+            ///SOUND EFFECT
+            ///
+            //sound for spawnning a pirate ship
+            SoundManager.instance.PlaySingle(SoundManager.instance.pirates);
+            ///
+            ///SOUND EFFECT
+            ///
             GameManager.instance.pirateShip = true;
  
             //Debug.Log("PirateSpwan=" + pirateSpawn);
         }
         yield break;
     }
-
-   // private void InstantiateCubeTimer() {
-   //     if (Time.time > pirateSlider.value) {
-   //         Instantiate(pirateShip, spawnPos.position, spawnPos.rotation);
-			//pirateSlider.value = Time.time + instantiateRate;
-   //     }
-   // }
 
 }

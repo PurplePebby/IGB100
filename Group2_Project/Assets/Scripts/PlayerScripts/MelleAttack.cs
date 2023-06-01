@@ -19,16 +19,24 @@ public class MelleAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !GameManager.instance.Paused)
-        {
+        Attack();
+    }
+
+    private void Attack() {
+        if (Input.GetButtonDown("Fire1") && !GameManager.instance.Paused) {
+            ///SOUND
+            ///
+            //sound for attack
+            //GameManager.instance.aM.playSoundeffect(GameManager.instance.aM.playerAttack);
+            ///
+            ///SOUND
             animator.SetBool("Attacking", true);
             spearCollider.enabled = true;
 
         }
-        else if (Input.GetButtonUp("Fire1"))
-        {
+        else if (Input.GetButtonUp("Fire1")) {
             animator.SetBool("Attacking", false);
-			spearCollider.enabled = false;
-		}
+            spearCollider.enabled = false;
+        }
     }
 }

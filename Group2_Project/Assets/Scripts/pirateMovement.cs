@@ -39,9 +39,16 @@ public class pirateMovement : MonoBehaviour
         if(shipBox != null){
             if (shipBox.bounds.Intersects(playerBoat.GetComponent<Collider>().bounds)){
                 //Debug.Log("COLLISION");
-                GameManager.instance.AddMoney(-(treasureStealAmt));
+                GameManager.instance.AddMoney(-treasureStealAmt);
                 
                 Destroy(gameObject);
+                ///SOUND EFFECT
+                ///
+                //sound for when pirate has stolen treasure
+                SoundManager.instance.PlaySingle(SoundManager.instance.pirates);
+                ///
+                ///SOUND EFFECT
+                ///
                 GameManager.instance.pirateShip = false;           
                 yield return null;
             }        
@@ -54,7 +61,7 @@ public class pirateMovement : MonoBehaviour
     }
 
     private void MoveToShip() {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerBoat.transform.position.x-10, playerBoat.transform.position.y, playerBoat.transform.position.z+4), pirateSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerBoat.transform.position.x, playerBoat.transform.position.y, playerBoat.transform.position.z), pirateSpeed * Time.deltaTime);
         transform.LookAt(new Vector3(playerBoat.transform.position.x, transform.position.y, playerBoat.transform.position.z));
     }
 }

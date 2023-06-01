@@ -11,10 +11,24 @@ public class pirateCollision : MonoBehaviour
     private void OnCollisionEnter(Collision collision) {
         //Debug.Log("There was a collision");
         if (collision.gameObject.tag == "Pew") {
+            ///SOUND EFFECT
+            ///
+            //sound for boat hit
+            SoundManager.instance.PlaySingle(SoundManager.instance.cannonHit);
+            ///
+            ///SOUND EFFECT
+            ///
             //check health
             if (pirateHealth <= 0) {
                 //kill boat
                 Destroy(this.gameObject);
+                ///SOUND EFFECT
+                ///
+                //sound for boat killed
+                SoundManager.instance.PlaySingle(SoundManager.instance.Explosion);
+                ///
+                ///SOUND EFFECT
+                ///
                 GameManager.instance.pirateShip = false;
             }
             else {

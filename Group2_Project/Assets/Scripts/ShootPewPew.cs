@@ -21,6 +21,12 @@ public class ShootPewPew : MonoBehaviour
     private void InstantiateProjectile() {
 
         if (Input.GetButtonDown("Fire1") && Time.time > fireTime && GameManager.instance.onCannon && !GameManager.instance.Paused) {
+            ///SOUND
+            ///
+            //sound for shooting an object
+            SoundManager.instance.PlaySingle(SoundManager.instance.cannonFire);
+            ///
+            ///SOUND
             Instantiate(obj, spawnPosition.position, spawnPosition.rotation);
             fireTime = Time.time + fireRate;
         }

@@ -34,19 +34,19 @@ public class GrabThings : MonoBehaviour
     private CollectibleThing thing;
 
     private bool InteractableItem;
-    private int treasureCount;
+    private int inventoryTreasureCount;
     /// <summary>
     /// Method called very frame.
     /// </summary>
     private void Update() {
 
-        CastRays();
         DetectBoatItem();
-        
+        CastRays();
+
     }
 
     private void Start() {
-        this.AddComponent<SpawnThings>();
+        
     }
 
     /// <summary>
@@ -71,17 +71,15 @@ public class GrabThings : MonoBehaviour
 
 
         // Reset position and rotation
-        if (item.gameObject.name == "cup") {
-            item.transform.localPosition = new Vector3(0, 0.37f, 0);
-        }
-        else {
-            item.transform.localPosition = Vector3.zero;
-        }
+        item.transform.localPosition = Vector3.zero;
         
         item.transform.localEulerAngles = Vector3.zero;
-        treasureCount =+1;
+        inventoryTreasureCount = inventoryTreasureCount + 1;
+
         //Debug.Log("treasure count: " + treasureCount);
-        
+        SoundManager.instance.PlaySingle(SoundManager.instance.treasureCollect);
+
+
     }
 
     private void DetermineSlot(GameObject[] slot){
@@ -116,28 +114,42 @@ public class GrabThings : MonoBehaviour
             // If object has PickableItem class
             var interactable = hit.transform.GetComponent<InteractableThing>();
             //Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
-            if (interactable.tag == "O2Tank" && interactable) {
+            if (interactable.tag == "O2Tank") {
                 StartCoroutine(GameManager.instance.ShowIfInteract("refill oxygen"));
             }
-            if (interactable.tag == "TreasureDropOff" && interactable) {
+            if (interactable.tag == "TreasureDropOff") {
 
                 StartCoroutine(GameManager.instance.ShowIfInteract("deposit treasure"));
             }
-            if (interactable.tag == "CannonButton" && interactable) {
+            if (interactable.tag == "CannonButton") {
 
                 StartCoroutine(GameManager.instance.ShowIfInteract("use the pirate cannon"));
             }
 
             if (hit.transform.GameObject().tag == "TreasureDropOff" && Input.GetKey("e")) {
+                
                 //Dropoff Treasure
                 for (int i = 0; i < 1; i++) {
                     AddScore();
                 }
+                ///SOUND
+                ///
+                //sound for dropping off treasure
+                SoundManager.instance.PlaySingle(SoundManager.instance.treasureDropOffs);
+                ///
+                ///SOUND
 
             }
             if (hit.transform.GameObject().tag == "O2Tank" && Input.GetKey("e")) {
+               
                 //Refill Tank
                 GameManager.instance.SetOxygen(100);
+                ///SOUND
+                ///
+                //sound for refilling oxygen
+                SoundManager.instance.PlaySingle(SoundManager.instance.oxygenRefill);
+                ///
+                ///SOUND
 
             }
             if (hit.transform.GameObject().tag == "CannonButton" && Input.GetKey("e")) {
@@ -151,7 +163,13 @@ public class GrabThings : MonoBehaviour
 				Cursor.visible = false;
 				Cursor.lockState = CursorLockMode.Confined;
 				GameManager.instance.onCannon = true;
-			}
+                ///SOUND
+                ///
+                //sound for pressing the cannon button
+                //SoundManager.instance.PlaySingle(SoundManager.instance.NAME_OF_FIELD);
+                ///
+                ///SOUND
+            }
         }
         else {
             StartCoroutine(GameManager.instance.HideIfNoInteract());
@@ -168,19 +186,20 @@ public class GrabThings : MonoBehaviour
             // Check if object is pickable
             var pickable = hit.transform.GetComponent<CollectibleThing>();
             var interactable = hit.transform.GetComponent<InteractableThing>();
-            if (interactable) {
+            if (interactable && interactable.tag=="Treasure") {
                 
                 StartCoroutine(GameManager.instance.ShowIfInteract("pick up treasure"));
             }
 
             // If object has PickableItem class
-            if (Input.GetKey("e") && pickable && treasureCount <3) {
+            if (Input.GetKey("e") && pickable && inventoryTreasureCount <3) {
 
                 // Pick it
                 PickItem(pickable);
 
+
             }
-            else if (treasureCount >= 3) {
+            else if (inventoryTreasureCount >= 3) {
                 DropItem(pickable);
             }
             //GameManager.instance.ShowE(false);
@@ -198,7 +217,7 @@ public class GrabThings : MonoBehaviour
                 GameManager.instance.AddMoney(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
             }
         }
-        treasureCount =- treasureCount;
+        inventoryTreasureCount =- inventoryTreasureCount;
     }
 
 }

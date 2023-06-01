@@ -9,6 +9,7 @@ public class SpawnThings : MonoBehaviour
     private List<GameObject> spawnLocationsList = new List<GameObject> ();
 
     public List<GameObject> treasures;
+    public int spawnAmt;
     
     private List<int> Spawnned = new List<int>();
 
@@ -64,7 +65,7 @@ public class SpawnThings : MonoBehaviour
     public void SpawnTreasure() {
         //Debug.Log("Something Spawnned");\
         Spawnned.Clear();
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= spawnAmt; i++) {
             int a = SelectTreasure();
             int b = SelectLocation();
             if (Spawnned.Contains(b) == false || Spawnned == null) {
