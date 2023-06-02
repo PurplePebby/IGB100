@@ -26,7 +26,9 @@ public class playerManager : MonoBehaviour
 
 
 	private PlayerMovementController playerMove;
-	private bool canDrown = false;
+	private bool Drowning = false;
+	private bool canBreath = true;
+	
 
 	public void Awake()
 	{
@@ -53,39 +55,39 @@ public class playerManager : MonoBehaviour
 
 	private void UnderWaterCheck()
 	{
-		if (transform.position.y < GameManager.instance.waterLevel + breathHeightOffset)
+		if (transform.position.y < GameManager.instance.waterLevel + breathHeightOffset && canBreath)
 		{
-			if (canDrown)
-			{
-				GameManager.instance.UpdateOxygen(-1 * Time.deltaTime);
-			}
-			else
-			{
-				StartCoroutine(Timer());
-			}
+			StartCoroutine(Timer());
+			canBreath = false;
 		}
-		else
+		else if (transform.position.y > GameManager.instance.waterLevel + breathHeightOffset && !canBreath)
 		{
-			canDrown = false;
-			if (refillAboveWater)
-			{
-				GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
-			}
+			Drowning = false;
+			canBreath = true;
+			
 		}
-		if (transform.position.y < GameManager.instance.waterLevel - 1f)
+		if (transform.position.y < GameManager.instance.waterLevel - 1f && !playerMove.underWater)
 		{
 			playerMove.underWater = true;
 
 		}
-		else
+		else if (transform.position.y > GameManager.instance.waterLevel - 1f && playerMove.underWater)
 		{
 			playerMove.underWater = false;
 
+		}
+		if (Drowning)
+		{
+			GameManager.instance.UpdateOxygen(-1 * Time.deltaTime);
+		}
+		if (refillAboveWater && canBreath)
+		{
+			GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
 		}
 	}
 	private IEnumerator Timer()
 	{
 		yield return new WaitForSeconds(oxygenDepletionDelay);
-		canDrown = true;
+		Drowning = true;
 	}
 }

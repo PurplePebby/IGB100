@@ -14,6 +14,8 @@ public class ShootPewPew : MonoBehaviour
     public float fireRate = 0.15f;
     private float fireTime;
 
+    public ParticleSystem cannonFire;
+
     void Update() {
         InstantiateProjectile();
     }
@@ -27,6 +29,7 @@ public class ShootPewPew : MonoBehaviour
             SoundManager.instance.PlaySingle(SoundManager.instance.cannonFire);
             ///
             ///SOUND
+            cannonFire.Play();
             Instantiate(obj, spawnPosition.position, spawnPosition.rotation);
             fireTime = Time.time + fireRate;
         }

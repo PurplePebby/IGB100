@@ -26,6 +26,9 @@ public class GrabThings : MonoBehaviour
     //get position for player to tp to cannon
     [SerializeField]
     private GameObject cannonPos;
+    //Max distance of raycast
+    [SerializeField]
+    private float interactionDistance = 5f;
 
 
 
@@ -110,7 +113,7 @@ public class GrabThings : MonoBehaviour
         // Create ray from center of the screen
         var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
         // Shot ray to find object to pick
-        if (Physics.Raycast(ray, out hit, 5f)) {
+        if (Physics.Raycast(ray, out hit, interactionDistance)) {
             // If object has PickableItem class
             var interactable = hit.transform.GetComponent<InteractableThing>();
             //Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
@@ -182,7 +185,7 @@ public class GrabThings : MonoBehaviour
         var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
         //RaycastHit hit;
         // Shot ray to find object to pick
-        if (Physics.Raycast(ray, out hit, 4f)) {
+        if (Physics.Raycast(ray, out hit, interactionDistance)) {
             // Check if object is pickable
             var pickable = hit.transform.GetComponent<CollectibleThing>();
             var interactable = hit.transform.GetComponent<InteractableThing>();

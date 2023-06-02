@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4494573831915191752}
   - component: {fileID: 290094802434872761}
   - component: {fileID: 4394534561457972871}
-  - component: {fileID: 2201789320343798133}
+  - component: {fileID: -3404973928579503447}
   m_Layer: 0
   m_Name: ring
   m_TagString: Treasure
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55c7c082506e6a43bb5f80aaf424657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &2201789320343798133
+--- !u!135 &-3404973928579503447
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527075f7413159c4bb5b09c376f2d4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iFrames: 0.2
+  iFrames: 0.4
   fish: {fileID: 5925960515861282153}
 --- !u!54 &5607601093160096158
 Rigidbody:
@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 45540169997415451}
   - component: {fileID: 1360601765179142228}
   - component: {fileID: 3333871732154044052}
+  - component: {fileID: 1814021168139654293}
   m_Layer: 0
   m_Name: SharkV1
   m_TagString: Untagged
@@ -180,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
-  maxHealth: 35
+  maxHealth: 25
 --- !u!64 &45540169997415451
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -221,6 +222,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.9345365
   m_Center: {x: -0.020836353, y: 0.2958555, z: 0}
+--- !u!114 &1814021168139654293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925960515861282153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a9e2aa4b1870e4abedeefd4031ab66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: {fileID: 0}
+  speed: 4
+  rotation: {x: 0, y: 0, z: 0}
+  CircleRadius: 14
+  ElevationOffset: 0
+  turnSpeed: 2
 --- !u!1 &6883191619910334762
 GameObject:
   m_ObjectHideFlags: 0

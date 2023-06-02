@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 527075f7413159c4bb5b09c376f2d4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iFrames: 0.2
+  iFrames: 0.4
   fish: {fileID: 3647273172297883857}
 --- !u!54 &1606043223
 Rigidbody:
@@ -226,7 +226,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 61.7
+  m_Radius: 122.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &1716217624
 SphereCollider:
@@ -254,11 +254,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: {fileID: 0}
-  speed: 5
+  speed: 7
   rotation: {x: 0, y: 0, z: 0}
   CircleRadius: 14
   ElevationOffset: 0
-  turnSpeed: 2
+  turnSpeed: 1.5
 --- !u!114 &1716217622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  maxHealth: 3
+  maxHealth: 4
 --- !u!4 &4167631809956346475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1064992905923894131, guid: 8806fa97be8808844bfbf9434f4dc1ca, type: 3}
