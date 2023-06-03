@@ -50,7 +50,7 @@ public class GrabThings : MonoBehaviour
     }
 
     private void Start() {
-        
+        this.AddComponent<SpawnThings>();
     }
 
     /// <summary>
@@ -76,10 +76,11 @@ public class GrabThings : MonoBehaviour
 
 
         // Reset position and rotation
+
         item.transform.localPosition = Vector3.zero;
-        
+
         item.transform.localEulerAngles = Vector3.zero;
-        inventoryTreasureCount ++;
+        inventoryTreasureCount = +1;
 
         //Debug.Log("treasure count: " + treasureCount);
         SoundManager.instance.PlaySingle(SoundManager.instance.treasureCollect);
