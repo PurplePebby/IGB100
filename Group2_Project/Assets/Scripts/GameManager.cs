@@ -329,13 +329,24 @@ public class GameManager : MonoBehaviour {
     public IEnumerator ShowPrompt(string a) {
         Panels[1].SetActive(true);
         //Debug.Log(collectText);
-        collectParent = GameObject.Find("InteractText");
-        collectText = collectParent.GetComponent<Text>();
-        collectText.text = "" + a;
         yield return new WaitForSeconds(1.5f);
         Panels[1].SetActive(false);
         //   yield return null;
     }
+
+    public IEnumerator showCannonExit() {
+        Panels[2].SetActive(true);
+
+		yield return null;
+        
+    }
+
+    public IEnumerator hideCannonExit() {
+        Panels[2].SetActive(false);
+        yield return null;
+    }
+
+
 
     #endregion
 }

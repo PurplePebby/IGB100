@@ -23,8 +23,7 @@ public class AntiPirateCannon : MonoBehaviour
     void Update() {
         
         if (myBrain.ActiveVirtualCamera == currentCamera && !GameManager.instance.Paused && GameManager.instance.onCannon){
-			//Debug.Log("Active");
-			//run cannon
+            StartCoroutine(GameManager.instance.showCannonExit());
 
 			AimCrosshair();
 			FollowMouse();
@@ -32,6 +31,7 @@ public class AntiPirateCannon : MonoBehaviour
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Confined;
 			if (Input.GetKey("q")) {
+                StartCoroutine(GameManager.instance.hideCannonExit());
                 CharacterController cc = player.GetComponent<CharacterController>();
                 this.transform.localRotation = Quaternion.Euler(Vector3.zero); 
                 cc.enabled = true;
@@ -42,8 +42,8 @@ public class AntiPirateCannon : MonoBehaviour
 				Cursor.lockState = CursorLockMode.Confined;
                 GameManager.instance.ResetCrossHair();
                 GameManager.instance.onCannon = false;
-
-			}
+                
+            }
         }
     }
     private void FollowMouse() {
