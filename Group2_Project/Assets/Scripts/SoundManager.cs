@@ -8,8 +8,8 @@ public class SoundManager : MonoBehaviour {
     //from https://learn.unity.com/tutorial/architecture-and-polish?projectId=5c514a00edbc2a0020694718#5c7f8528edbc2a002053b6ee
     //and from https://www.daggerhartlab.com/unity-audio-and-sound-manager-singleton-script/
 
-    public AudioClip underwaterSounds; //use music template in comments below
-    public AudioClip abovewaterSounds;
+    public AudioClip underWaterSounds; //use music template in comments below
+    public AudioClip aboveWaterSounds;
 
     public AudioClip bubbles;
     [Tooltip("When player enters water")]
@@ -40,6 +40,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip Explosion; //added
     [Tooltip("When pirates spawnned && when treasure has been stolen")]
     public AudioClip pirates; //added
+
 
     [SerializeField]
     [Tooltip("Don't assign anything here. Variable for comparing if an audio has changed")]
@@ -89,17 +90,17 @@ public class SoundManager : MonoBehaviour {
     }
 
 
-    //Used to play single sound clips.
-    public void PlaySingle(AudioClip clip) {
+	//Used to play single sound clips.
+	public void PlaySingle(AudioClip clip) {
         if (clip == null) {
             return;
         }
         else {
             //Set the clip of our efxSource audio source to the clip passed in as a parameter.
             efxSource.clip = clip;
-
-            //Play the clip.
-            efxSource.Play();
+			efxSource.loop = false;
+			//Play the clip.
+			efxSource.Play();
         }
     }
 
@@ -116,14 +117,14 @@ public class SoundManager : MonoBehaviour {
         else{
             //if the clip sound is different
             //Set the clip of our efxSource audio source to the clip passed in as a parameter.
-            efxSource.clip = clip;
+            musicSource.clip = clip;
             oldClip = clip;
 
-            //loops the music
-            efxSource.loop = true;
+			//loops the music
+			musicSource.loop = true;
 
-            //Play the clip.
-            efxSource.Play(); 
+			//Play the clip.
+			musicSource.Play(); 
         }
         
 

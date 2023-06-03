@@ -26,7 +26,10 @@ public class GetOnBoat : MonoBehaviour
                 player.transform.position = pos.transform.position;
                 
                 cc.enabled = true;
-            }
+
+				//sound for abovewater music
+				SoundManager.instance.PlayMusic(SoundManager.instance.aboveWaterSounds);
+			}
 
         }
         //player can just jump off boat prolly ngl

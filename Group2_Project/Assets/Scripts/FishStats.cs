@@ -21,9 +21,12 @@ public class FishStats : MonoBehaviour
 	public void DamageHealth(float value)
 	{
 		health = Mathf.Clamp(health - value, 0f, maxHealth);
-
+		//sound for....
+		SoundManager.instance.PlaySingle(SoundManager.instance.enemyHurt);
 		if (health <= 0f)
 		{
+			//sound for....
+			SoundManager.instance.PlaySingle(SoundManager.instance.enemyDies);
 			Destroy(gameObject);
 		}
 	}

@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour {
 
 	[NonSerialized] public float drownDPS;
 
+	public bool O2WarningGiven = false;
+
     private bool paused = false;
 	[HideInInspector]
 	public bool drowning = false;
@@ -82,9 +84,8 @@ public class GameManager : MonoBehaviour {
 		waterLevel = waterLevelMarker.transform.position.y;
 		//Debug.Log("The surface is at " + waterLevel);
 
-        
-
-        
+		//sound for abovewater music
+		SoundManager.instance.PlayMusic(SoundManager.instance.aboveWaterSounds);
 
 		Resume();
 	}
@@ -119,9 +120,16 @@ public class GameManager : MonoBehaviour {
 	public void UpdateHealth(float value)
 	{
 		healthBarSlider.value = Mathf.Clamp(healthBarSlider.value + value, 0, healthBarSlider.maxValue);
+		if (value < 0)
+		{
+			//sound for....
+			SoundManager.instance.PlaySingle(SoundManager.instance.playerHurt);
+		}
 		if (healthBarSlider.value <= 0)
 		{
 			GameOver();
+			//sound for....
+			SoundManager.instance.PlaySingle(SoundManager.instance.playerDeath);
 		}
 	}
 
@@ -138,11 +146,20 @@ public class GameManager : MonoBehaviour {
 	public void UpdateOxygen(float value)
     {
 		oxygenBarSlider.value = Mathf.Clamp(oxygenBarSlider.value + value, 0, oxygenBarSlider.maxValue);
+		if (oxygenBarSlider.value < 7 && !O2WarningGiven)
+		{
+			//sound for....
+			SoundManager.instance.PlaySingle(SoundManager.instance.oxygenAlert);
+			O2WarningGiven = true;
+		}
+
         if (oxygenBarSlider.value <= 0 && !drowning)
         {
 			drowning = true;
 			drownBubbles.Play();
-        }
+			//sound for....
+			SoundManager.instance.PlaySingle(SoundManager.instance.choke);
+		}
 		if (drowning)
 		{
 			Drowning();
@@ -221,9 +238,10 @@ public class GameManager : MonoBehaviour {
 		crosshair.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
 		crosshair.rectTransform.pivot = new Vector2(0.5f, 0.5f);
 		crosshair.rectTransform.anchoredPosition = new Vector3(0f, 0f, 0f);
+
 	}
 
-    public void PlayPirateEnding()
+	public void PlayPirateEnding()
 	{
 		pirateEnding.SetActive(true);
 	}
@@ -301,7 +319,10 @@ public class GameManager : MonoBehaviour {
     public IEnumerator HideIfNoInteract() {
 
         Panels[0].SetActive(false);
-		ResetCrossHair();
+		if (!onCannon)
+		{
+			ResetCrossHair();
+		}
         yield return null;
         //   yield return null;
     }

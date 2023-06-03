@@ -14,11 +14,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Main/Main_4.unity
     guid: 5fcc2e3a36b0fb741b95e7022b80b3ec
-  - enabled: 0
-    path: Assets/0.Jazlyn's Work/Jazlyn's Scene2.unity
-    guid: 7b2ba00f27f70d345944d68aa594f75e
-  - enabled: 0
-    path: Assets/_Main/Main_3.unity
-    guid: 2d872e87d1f20f744a5eea341bfb1980
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

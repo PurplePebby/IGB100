@@ -23,10 +23,12 @@ public class AntiPirateCannon : MonoBehaviour
     void Update() {
         
         if (myBrain.ActiveVirtualCamera == currentCamera && !GameManager.instance.Paused && GameManager.instance.onCannon){
-            //Debug.Log("Active");
-            //run cannon
-            FollowMouse();
-            AimCrosshair();
+			//Debug.Log("Active");
+			//run cannon
+
+			AimCrosshair();
+			FollowMouse();
+            
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Confined;
 			if (Input.GetKey("q")) {

@@ -69,19 +69,27 @@ public class playerManager : MonoBehaviour
 	{
 		if (transform.position.y < GameManager.instance.waterLevel + breathHeightOffset && canBreath)
 		{
-			StartCoroutine(Timer());
+			StartCoroutine(DrownTimer());
 			canBreath = false;
 			bubbles.Play();
+			//sound for underwater music
+			SoundManager.instance.PlayMusic(SoundManager.instance.underWaterSounds);
+
 		}
 		else if (transform.position.y > GameManager.instance.waterLevel + breathHeightOffset && !canBreath)
 		{
 			canBreath = true;
 			bubbles.Stop();
-
+			GameManager.instance.O2WarningGiven = false;
+			//sound for abovewater music
+			SoundManager.instance.PlayMusic(SoundManager.instance.aboveWaterSounds);
 		}
 		if (transform.position.y < GameManager.instance.waterLevel + walkHeightOffset && !playerMove.underWater)
 		{
 			playerMove.underWater = true;
+			
+			
+			
 
 		}
 		else if (transform.position.y > GameManager.instance.waterLevel + walkHeightOffset && playerMove.underWater)
@@ -103,7 +111,7 @@ public class playerManager : MonoBehaviour
 			GameManager.instance.UpdateOxygen(breathSpeed * Time.deltaTime);
 		}
 	}
-	private IEnumerator Timer()
+	private IEnumerator DrownTimer()
 	{
 		yield return new WaitForSeconds(oxygenDepletionDelay);
 		Drowning = true;
@@ -112,7 +120,7 @@ public class playerManager : MonoBehaviour
 	private void CheckDistance()
 	{
 		var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
-		if (Physics.Raycast(ray, out hit, attackDistance))
+		if (Physics.Raycast(ray, out hit, attackDistance) && !GameManager.instance.onCannon)
 		{
 			var interactable = hit.transform.GetComponent<InteractableThing>();
 			//Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
@@ -123,7 +131,11 @@ public class playerManager : MonoBehaviour
 		}
 		else
 		{
-			GameManager.instance.ResetCrossHair();
+			if (!GameManager.instance.onCannon)
+			{
+				GameManager.instance.ResetCrossHair();
+			}
+			
 		}
 	}
 }

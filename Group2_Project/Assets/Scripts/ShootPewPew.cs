@@ -31,7 +31,7 @@ public class ShootPewPew : MonoBehaviour
             ///
             ///SOUND
             cannonFire.Play();
-            Instantiate(obj, spawnPosition.position, spawnPosition.rotation);
+			Instantiate(obj, spawnPosition.position, spawnPosition.rotation);
             fireTime = Time.time + fireRate;
         }
     }
