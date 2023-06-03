@@ -5,12 +5,15 @@ using UnityEngine;
 public class MelleAttack : MonoBehaviour
 {
 	public float damage = 1;
+    
 
 	private Animator animator;
     private BoxCollider spearCollider;
-    
-    // Start is called before the first frame update
-    void Start()
+
+
+
+	// Start is called before the first frame update
+	void Start()
     {
         animator = GetComponent<Animator>();
         spearCollider = GetComponent<BoxCollider>();
@@ -19,6 +22,7 @@ public class MelleAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Attack();
     }
 
@@ -39,4 +43,6 @@ public class MelleAttack : MonoBehaviour
             spearCollider.enabled = false;
         }
     }
+
+    
 }

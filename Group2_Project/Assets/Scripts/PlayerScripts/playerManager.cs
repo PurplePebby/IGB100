@@ -21,14 +21,23 @@ public class playerManager : MonoBehaviour
 	[Tooltip("The speed that the player regains their breath. Measured in seconds of oxygen per second.")] private float breathSpeed;
 	[SerializeField]
 	[Tooltip("How high above the water the player needs to be in order to breath.")] private float breathHeightOffset;
+	[SerializeField, Tooltip("How high above the water the player needs to be in order to switch to land movement")]
+	private float walkHeightOffset = -1f;
 	[SerializeField]
 	[Tooltip("Does the player gain oxygen when above water.")] private bool refillAboveWater = false;
 
+	public ParticleSystem bubbles;
+
+	// Reference to the character camera.
+	[SerializeField]
+	private Camera characterCamera;
+	[SerializeField, Tooltip("This value is just used to determine if an enemy is within range of attack. To change atatck range change the animation")] private float attackDistance;
 
 	private PlayerMovementController playerMove;
 	private bool Drowning = false;
 	private bool canBreath = true;
-	
+
+	private RaycastHit hit;
 
 	public void Awake()
 	{
@@ -47,11 +56,14 @@ public class playerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
 		if (!GameManager.instance.Paused)
 		{
+			CheckDistance();
 			UnderWaterCheck();
 		}
 	}
+
 
 	private void UnderWaterCheck()
 	{
@@ -59,22 +71,28 @@ public class playerManager : MonoBehaviour
 		{
 			StartCoroutine(Timer());
 			canBreath = false;
+			bubbles.Play();
 		}
 		else if (transform.position.y > GameManager.instance.waterLevel + breathHeightOffset && !canBreath)
 		{
-			Drowning = false;
 			canBreath = true;
-			
+			bubbles.Stop();
+
 		}
-		if (transform.position.y < GameManager.instance.waterLevel - 1f && !playerMove.underWater)
+		if (transform.position.y < GameManager.instance.waterLevel + walkHeightOffset && !playerMove.underWater)
 		{
 			playerMove.underWater = true;
 
 		}
-		else if (transform.position.y > GameManager.instance.waterLevel - 1f && playerMove.underWater)
+		else if (transform.position.y > GameManager.instance.waterLevel + walkHeightOffset && playerMove.underWater)
 		{
 			playerMove.underWater = false;
 
+		}
+		if (canBreath)
+		{
+			Drowning = false;
+			GameManager.instance.drowning = false;
 		}
 		if (Drowning)
 		{
@@ -89,5 +107,23 @@ public class playerManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds(oxygenDepletionDelay);
 		Drowning = true;
+	}
+
+	private void CheckDistance()
+	{
+		var ray = characterCamera.ViewportPointToRay(Vector3.one * 0.5f);
+		if (Physics.Raycast(ray, out hit, attackDistance))
+		{
+			var interactable = hit.transform.GetComponent<InteractableThing>();
+			//Debug.Log("interactable"+ hit.transform.GetComponent<InteractableThing>());
+			if (hit.transform.CompareTag("Enemy"))
+			{
+				GameManager.instance.CrossHairColour(Color.red);
+			}
+		}
+		else
+		{
+			GameManager.instance.ResetCrossHair();
+		}
 	}
 }

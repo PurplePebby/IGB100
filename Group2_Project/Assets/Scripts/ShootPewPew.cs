@@ -10,6 +10,7 @@ public class ShootPewPew : MonoBehaviour
 
     [SerializeField]
     private Transform spawnPosition;
+    
 
     public float fireRate = 0.15f;
     private float fireTime;
@@ -34,4 +35,7 @@ public class ShootPewPew : MonoBehaviour
             fireTime = Time.time + fireRate;
         }
     }
+
+    
+    
 }

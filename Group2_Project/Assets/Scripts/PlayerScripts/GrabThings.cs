@@ -37,6 +37,7 @@ public class GrabThings : MonoBehaviour
     private CollectibleThing thing;
 
     private bool InteractableItem;
+    [SerializeField]
     private int inventoryTreasureCount;
     /// <summary>
     /// Method called very frame.
@@ -65,6 +66,7 @@ public class GrabThings : MonoBehaviour
         item.Rb.velocity = Vector3.zero;
         item.Rb.angularVelocity = Vector3.zero;
         item.gameObject.layer = 5;
+        item.GetComponent<ParticleSystem>().Stop();
 
         
         // Set Slot as a parent
@@ -77,7 +79,7 @@ public class GrabThings : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
         
         item.transform.localEulerAngles = Vector3.zero;
-        inventoryTreasureCount = inventoryTreasureCount + 1;
+        inventoryTreasureCount ++;
 
         //Debug.Log("treasure count: " + treasureCount);
         SoundManager.instance.PlaySingle(SoundManager.instance.treasureCollect);
@@ -88,7 +90,8 @@ public class GrabThings : MonoBehaviour
     private void DetermineSlot(GameObject[] slot){
         for (int i = 0; i < slot.Length; i++){
             if (slot[i].transform.childCount == 0) {
-                useSlot = slot[i];                  
+                useSlot = slot[i];
+                break;
             }
         }
     }
@@ -220,7 +223,7 @@ public class GrabThings : MonoBehaviour
                 GameManager.instance.AddMoney(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
             }
         }
-        inventoryTreasureCount =- inventoryTreasureCount;
+        inventoryTreasureCount = 0;
     }
 
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Movepath : MonoBehaviour
 {
-    public Transform[] points;
-    int current;
-    public float speed = 5f;
+	//create empty game objects & place them around the scene as the path for the fish to take
+	public GameObject points;
+	private Transform[] pointsArray;
+	int current;
+	public float speed = 5f;
 
     [SerializeField]
     private Vector3 rotation;
@@ -23,8 +25,14 @@ public class Movepath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        current = 0;
-    }
+		List<Transform> pointsList = new List<Transform>();
+		current = 0;
+		foreach (Transform child in points.transform)
+		{
+			pointsList.Add(child.transform);
+		}
+		pointsArray = pointsList.ToArray();
+	}
 
     // Update is called once per frame
     void Update()
@@ -34,10 +42,10 @@ public class Movepath : MonoBehaviour
 
     private void MovePath() {
         //enemy pathing https://www.youtube.com/watch?v=BGe5HDsyhkY
-        ; if (transform.position != points[current].position) {
-            transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
+        ; if (transform.position != pointsArray[current].position) {
+            transform.position = Vector3.MoveTowards(transform.position, pointsArray[current].position, speed * Time.deltaTime);
             //find the vector pointing from our position to the target
-            direction = (points[current].position - transform.position).normalized;
+            direction = (pointsArray[current].position - transform.position).normalized;
 
             //create the rotation we need to be in to look at the target
             lookRotation = Quaternion.LookRotation(direction);
@@ -46,7 +54,7 @@ public class Movepath : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
         }
         else {
-            current = (current + 1) % points.Length;
+            current = (current + 1) % pointsArray.Length;
         }
 
     }

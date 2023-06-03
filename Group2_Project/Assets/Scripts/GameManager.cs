@@ -11,11 +11,10 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
-    private GameObject scoreParent;
     private GameObject collectParent;
-    private int score = 0;
+    private int currentMoney = 0;
     public int treasureCount = 0;
-    private Text scoreText;
+    public Text moneyText;
     private Text collectText;
 
     public SoundManager aM;
@@ -31,6 +30,8 @@ public class GameManager : MonoBehaviour {
 
 	[SerializeField]
 	[Tooltip("The UI slider used to show oxygen.")] private Slider oxygenBarSlider;
+
+	[SerializeField, Tooltip("The crosshair")] private Image crosshair;
 
     [Tooltip("The UI slider used to show money.")] public Slider moneyBarSlider;
     [Tooltip("The UI slider used pirates attacks")] public Slider pirateSlider;
@@ -56,6 +57,9 @@ public class GameManager : MonoBehaviour {
 	[NonSerialized] public float drownDPS;
 
     private bool paused = false;
+	[HideInInspector]
+	public bool drowning = false;
+	public ParticleSystem drownBubbles;
     public bool Paused
     {
         get { return paused; }
@@ -75,15 +79,10 @@ public class GameManager : MonoBehaviour {
     void Start() {
         //startCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         
-        scoreParent = GameObject.Find("Score Text");
-        scoreText = scoreParent.GetComponent<Text>(); 
-        
-        
-        scoreText = scoreParent.GetComponent<Text>();
 		waterLevel = waterLevelMarker.transform.position.y;
 		//Debug.Log("The surface is at " + waterLevel);
 
-        UpdateMoney();
+        
 
         
 
@@ -139,10 +138,15 @@ public class GameManager : MonoBehaviour {
 	public void UpdateOxygen(float value)
     {
 		oxygenBarSlider.value = Mathf.Clamp(oxygenBarSlider.value + value, 0, oxygenBarSlider.maxValue);
-        if (oxygenBarSlider.value <= 0)
+        if (oxygenBarSlider.value <= 0 && !drowning)
         {
-            Drowning();
+			drowning = true;
+			drownBubbles.Play();
         }
+		if (drowning)
+		{
+			Drowning();
+		}
 	}
 
     public void Drowning()
@@ -155,12 +159,13 @@ public class GameManager : MonoBehaviour {
 	public void SetMaxMoney(float money)
 	{
 		moneyBarSlider.maxValue = money;
+		UpdateMoney();
 	}
 
 	private void UpdateMoney()
 	{
-		scoreText.text = "" + score;
-		moneyBarSlider.value = moneyBarSlider.value + score;
+		moneyText.text = "$" + currentMoney;
+		moneyBarSlider.value = currentMoney;
 		if (moneyBarSlider.value >= moneyBarSlider.maxValue)
 		{
 			Pause();
@@ -170,7 +175,7 @@ public class GameManager : MonoBehaviour {
 
 	public void AddMoney(int newScoreValue)
 	{
-		score += newScoreValue;
+		currentMoney += newScoreValue;
 
 		UpdateMoney();
 	}
@@ -201,6 +206,22 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region cutscenes and menus
+
+	public void CrossHairColour(Color colour)
+	{
+		crosshair.color = colour;
+	}
+
+	public void ResetCrossHair()
+	{
+		crosshair.color = Color.white;
+
+
+		crosshair.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+		crosshair.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+		crosshair.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+		crosshair.rectTransform.anchoredPosition = new Vector3(0f, 0f, 0f);
+	}
 
     public void PlayPirateEnding()
 	{
@@ -273,12 +294,14 @@ public class GameManager : MonoBehaviour {
         collectParent = GameObject.Find("InteractText");
         collectText = collectParent.GetComponent<Text>();
         collectText.text = "Press 'E' to " + a;
+		CrossHairColour(Color.green);
         yield return null;
         //   yield return null;
     }
     public IEnumerator HideIfNoInteract() {
 
         Panels[0].SetActive(false);
+		ResetCrossHair();
         yield return null;
         //   yield return null;
     }

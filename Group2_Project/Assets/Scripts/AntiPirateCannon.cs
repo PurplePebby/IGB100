@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AntiPirateCannon : MonoBehaviour
@@ -8,8 +9,10 @@ public class AntiPirateCannon : MonoBehaviour
 
     [SerializeField]
     private GameObject player;
+	[SerializeField] private RectTransform Crosshair;
+    public Canvas canvas;
 
-    [SerializeField]
+	[SerializeField]
     CinemachineVirtualCamera currentCamera;
     [SerializeField]
     CinemachineVirtualCamera newCamera;
@@ -19,10 +22,11 @@ public class AntiPirateCannon : MonoBehaviour
 
     void Update() {
         
-        if (myBrain.ActiveVirtualCamera == currentCamera && !GameManager.instance.Paused){
+        if (myBrain.ActiveVirtualCamera == currentCamera && !GameManager.instance.Paused && GameManager.instance.onCannon){
             //Debug.Log("Active");
             //run cannon
             FollowMouse();
+            AimCrosshair();
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Confined;
 			if (Input.GetKey("q")) {
@@ -34,6 +38,7 @@ public class AntiPirateCannon : MonoBehaviour
 
 				Cursor.visible = false;
 				Cursor.lockState = CursorLockMode.Confined;
+                GameManager.instance.ResetCrossHair();
                 GameManager.instance.onCannon = false;
 
 			}
@@ -43,5 +48,10 @@ public class AntiPirateCannon : MonoBehaviour
         transform.LookAt(Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, 120)));
         transform.Rotate(-90.0f, 90f, 0f, Space.Self);
     }
-
+	private void AimCrosshair()
+	{
+		Vector2 pos;
+		RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
+		Crosshair.position = canvas.transform.TransformPoint(pos);
+	}
 }

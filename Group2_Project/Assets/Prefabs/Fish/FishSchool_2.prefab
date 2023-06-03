@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2670067931398604644}
+  - component: {fileID: 7358050829323671777}
   m_Layer: 0
   m_Name: FishSchool_2
   m_TagString: Untagged
@@ -24,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5738068690626597147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.99, y: 9.39, z: -21.81}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2853254581154829500}
@@ -35,6 +36,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7358050829323671777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738068690626597147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37cf131d4e308644b5a502ec19c05df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: {fileID: 0}
+  speed: 4
+  rotation: {x: 0, y: 0, z: 0}
+  turnSpeed: 1
 --- !u!1001 &465907272105221755
 PrefabInstance:
   m_ObjectHideFlags: 0

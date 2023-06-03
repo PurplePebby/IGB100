@@ -25,7 +25,7 @@ public class ProjectilePhysics : MonoBehaviour{
         applyForce = true;
     }
 
-	private void OnDestroy()
+	public void Impact()
 	{
         gameObject.GetComponent<ParticleSystem>().Play();
 	}
