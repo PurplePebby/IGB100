@@ -80,7 +80,8 @@ public class GrabThings : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
 
         item.transform.localEulerAngles = Vector3.zero;
-        inventoryTreasureCount = +1;
+        inventoryTreasureCount ++;
+        Debug.Log($"PickItemTreasureCount: {inventoryTreasureCount}");
 
         //Debug.Log("treasure count: " + treasureCount);
         SoundManager.instance.PlaySingle(SoundManager.instance.treasureCollect);
@@ -134,11 +135,9 @@ public class GrabThings : MonoBehaviour
             }
 
             if (hit.transform.GameObject().tag == "TreasureDropOff" && Input.GetKey("e")) {
-                
+                Debug.Log(hit.transform.GameObject().name);
                 //Dropoff Treasure
-                for (int i = 0; i < 1; i++) {
-                    AddScore();
-                }
+                AddScore();
                 ///SOUND
                 ///
                 //sound for dropping off treasure
@@ -197,7 +196,7 @@ public class GrabThings : MonoBehaviour
                 
                 StartCoroutine(GameManager.instance.ShowIfInteract("pick up treasure"));
             }
-
+            Debug.Log($"CastRaysTreasureCount: {inventoryTreasureCount}");
             // If object has PickableItem class
             if (Input.GetKey("e") && pickable && inventoryTreasureCount <3) {
 
@@ -215,16 +214,24 @@ public class GrabThings : MonoBehaviour
             StartCoroutine(GameManager.instance.HideIfNoInteract());
         }
     }
+
+    //something buggy about when this is called
     public void AddScore() {
         for (int i = 0; i < slot.Length; i++) {
-            if (slot[i].transform.childCount == 1) {               
+            if (slot[i].transform.childCount >= 1) {               
                 //Debug.Log("Score Added");
                 Destroy(slot[i].transform.GetChild(0).gameObject);
                 GameManager.instance.AddTreasureCount(-1);
                 GameManager.instance.AddMoney(slot[i].transform.GetChild(0).GetComponent<CollectibleThing>().moneyValue);
+                inventoryTreasureCount --;
+                Debug.Log($"AddScoreTreasureCount: {inventoryTreasureCount}");
             }
         }
-        inventoryTreasureCount = 0;
+        
     }
+
+    ///debug notes:
+    ///addscore was running twice, now it only runs once
+    ///current issue seems to be with how the treasure inventory is iterated through and/or deposited
 
 }

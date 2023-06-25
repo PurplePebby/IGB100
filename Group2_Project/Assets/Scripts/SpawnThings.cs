@@ -21,10 +21,12 @@ public class SpawnThings : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		foreach (Transform child in spawnLocations.transform)
-		{
-			spawnLocationsList.Add(child.transform.gameObject);
-		}
+        if (spawnLocationsList.Count <= 0 ) {
+            foreach (Transform child in spawnLocations.transform)
+		    {
+			    spawnLocationsList.Add(child.transform.gameObject);
+		    } 
+        }
 
 		treasureCount = GameManager.instance.treasureCount;
         if (checkTreasure() == true) {

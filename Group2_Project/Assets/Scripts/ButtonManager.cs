@@ -25,10 +25,20 @@ public class ButtonManager : MonoBehaviour
 
 	public void QuitButton()
 	{
-		Application.Quit();
-	}
+        //quit button managementfrom  https://community.gamedev.tv/t/how-do-i-make-the-quit-button-work-for-webgl/40403/4
+		#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
+        Debug.Log(this.name + " : " + this.GetType() + " : " + System.Reflection.MethodBase.GetCurrentMethod().Name);
+		#endif
+		#if (UNITY_EDITOR)
+				UnityEditor.EditorApplication.isPlaying = false;
+		#elif (UNITY_STANDALONE)
+			Application.Quit();
+		#elif (UNITY_WEBGL)
+			Application.OpenURL("about:blank");
+		#endif
+    }
 
-	public void MainMenu()
+    public void MainMenu()
 	{
 		SceneManager.LoadScene(0);
 	}

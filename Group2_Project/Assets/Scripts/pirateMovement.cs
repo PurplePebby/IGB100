@@ -27,7 +27,7 @@ public class pirateMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(alive);
+       // Debug.Log(alive);
         if (alive == true){
             MoveToShip();
             //replace with collision
