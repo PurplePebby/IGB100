@@ -26571,6 +26571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treasureCount: 0
+  inventoryTreasureCount: 0
   moneyText: {fileID: 928707376}
   aM: {fileID: 507568663}
   waterLevelMarker: {fileID: 1572173847}

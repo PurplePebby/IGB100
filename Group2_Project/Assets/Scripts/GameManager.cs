@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     private GameObject collectParent;
     private int currentMoney = 0;
     public int treasureCount = 0;
+	public int inventoryTreasureCount = 0;
     public Text moneyText;
     private Text collectText;
 
